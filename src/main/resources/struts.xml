@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+<package name="selectores" extends="struts-default,json-default">
+		<action name="ListadodeMeses" class="org.remusystem.listas.ListarMeses">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="ListadodeAnios" class="org.remusystem.listas.ListarAnios">
+			<result name="success" type="json"></result>
+		</action>
+
+		<action name="lista_mutuales" class="org.remusystem.listas.Mutuales">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="lista_caja_comp" class="org.remusystem.listas.Compensacion">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="lista_inst_salud" class="org.remusystem.listas.Salud">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="lista_inst_prevision" class="org.remusystem.listas.Prevision">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="lista_cargos_tra" class="org.remusystem.listas.Cargos">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="lista_cargos_tra_auto" class="org.remusystem.listas.CargosAuto">
+			<result name="success" type="json"></result>
+		</action>
+		
+		<action name="listarAsignacionFamiliar" class="org.remusystem.actions.grid.ListarAsignacionFam">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="EditarAsignacionFamiliar" class="org.remusystem.actions.grid.EditarAsignacionFam">
+        </action>
+        
+        <action name="listarImpuestoUnicoSegunda" class="org.remusystem.actions.grid.ListarImpuestoUnico">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="EditarImpuestoUnicoSegunda" class="org.remusystem.actions.grid.EditarImpuestoUnico">
+        </action>
+        
+        <action name="listarAFP" class="org.remusystem.actions.grid.ListarAfp">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="editarAFP" class="org.remusystem.actions.grid.EditarAfp">
+        </action>
+        
+        <action name="listarValores" class="org.remusystem.actions.grid.ListarValores">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="editarValores" class="org.remusystem.actions.grid.EditarValores">
+        </action>
+        
+        <action name="listarTopes" class="org.remusystem.actions.grid.ListarTopes">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="editarTopes" class="org.remusystem.actions.grid.EditarTopes">
+        </action>
+        
+        <action name="listarAnticipos" class="org.remusystem.actions.grid.ListarAnticipos">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="editarAnticipos" class="org.remusystem.actions.grid.EditarAnticipos">
+        </action>
+        
+        <action name="listarAbonos" class="org.remusystem.actions.grid.ListarAbonos">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="editarAbonos" class="org.remusystem.actions.grid.EditarAbonos">
+        </action>
+        
+        <action name="buscarAnticipos" class="org.remusystem.actions.BuscarAnticipos">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="buscarAbonos" class="org.remusystem.actions.BuscarAbonos">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+            <action name="buscarAnticipos2" class="org.remusystem.actions.grid.BuscarAnticipos2">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="buscarAbonos2" class="org.remusystem.actions.grid.BuscarAbonos2">
+        	<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+        </action>
+        
+        <action name="listarTrabajadores" class="org.remusystem.actions.ListarTrabajadoresEmpresa" method="execute">
+			<result name="success" type="json">
+            	<param name="includeProperties">JSON,gridModel.*,page,records,rows,sidx,sord,total</param>
+        	</result>
+		</action>
+		
+		<action name="editarTrabajadores" class="org.remusystem.actions.grid.EditarTrabajadores">
+		</action>
+        
+              
+			
+    </package>
+
+<package name="actions" extends="struts-default">
+
+		<action name="Bienvenido" class="org.remusystem.actions.Load" method="load">
+			<result>/Paginas/Inicio.jsp</result>
+		</action>
+		
+		<action name="Login" class="org.remusystem.actions.Login" method="login">
+			<result name="input">/Paginas/Inicio.jsp</result>
+			<result name="empresa">/Paginas/Empresa/Gestionar.jsp</result>
+			<result name="trabajador">/Paginas/Trabajador/Redirige.jsp</result>
+			<result name="admin">/Paginas/Admin/RegistrarEmp.jsp</result>
+			<result name="error">/Paginas/Inicio.jsp</result>
+		</action>
+		
+		<action name="CerrarSession" class="org.remusystem.actions.End" method="execute">
+			<result name="success">/Paginas/Cerrar.jsp</result>
+		</action>
+		
+			
+		<action name="RegistrarEmpresa" class="org.remusystem.actions.registrarempresa" method="execute">
+			<result name="success">/Paginas/Admin/RegistrarEmp.jsp</result>
+			<result name="error">/Paginas/Admin/RegistrarEmp.jsp</result>
+		</action>
+		
+		<action name="RegistrarTrabajador" class="org.remusystem.actions.RegistrarTrabajador" method="execute">
+			
+			<result name="success">/Paginas/Empresa/IngEmpleado.jsp</result>
+			<result name="error">/Paginas/Empresa/IngEmpleado.jsp</result>
+		</action>
+		
+		<action name="verFichaTra" class="org.remusystem.actions.VerFichaTrabajador" method="execute">
+			<result name="success">/Paginas/Trabajador/VerFicha.jsp</result>
+		</action>
+		
+		<!-- <action name="BuscarAnticiposTra" class="BuscarAnticipos" method="execute">
+			<result name="success">/Paginas/Trabajador/VerFicha.jsp</result>
+			<result name="error">/Paginas/Trabajador/VerFicha.jsp</result>
+		</action> -->
+		
+		<action name="BuscarTrabajadorEMP" class="org.remusystem.actions.BuscarTrabajador" method="execute">
+			<result name="success">/Paginas/Empresa/Gestionar.jsp</result>
+			<result name="error">/Paginas/Empresa/Gestionar.jsp</result>
+		</action>
+		
+		<action name="AgregarDescuento" class="org.remusystem.actions.AgregaDescuentos" method="execute">
+			<result name="success">/Paginas/Empresa/Gestionar.jsp</result>
+			<result name="error">/Paginas/Empresa/Gestionar.jsp</result>
+		</action>
+		
+		<action name="ModificarTrabajadorEMP" class="org.remusystem.actions.ModificarDatosTrabajador" method="execute">
+			
+			<result name="success">/Paginas/Empresa/Gestionar.jsp</result>
+			<result name="error">/Paginas/Empresa/Gestionar.jsp</result>
+		</action>
+		
+		<action name="EliminarRel" class="org.remusystem.actions.EliminarRelacionLaboral" method="execute">
+			<result name="success">/Paginas/Empresa/Gestionar.jsp</result>
+			<result name="error">/Paginas/Empresa/Gestionar.jsp</result>
+		</action>
+		
+		<action name="ModContra" class="org.remusystem.actions.CambiarContrasenaTra" method="execute">
+			<result name="success">/Paginas/Trabajador/VerFicha.jsp</result>
+			<result name="error">/Paginas/Trabajador/CambiarCon.jsp</result>
+		</action>
+		
+		<action name="ModificarDatos" class="org.remusystem.actions.BuscarEmpUser" method="execute">
+			<result name="success">/Paginas/Empresa/ModificarMisDatosEmp.jsp</result>
+		</action>
+		
+		<action name="ModificarEmpresa" class="org.remusystem.actions.ModificarEmpresa" method="execute">
+			<result name="success">/Paginas/Empresa/Gestionar.jsp</result>
+			<result name="error">/Paginas/Empresa/ModificarMisDatosEmp.jsp</result>
+		</action>
+		
+		<action name="ListarEmpleados" class="org.remusystem.actions.ListarTrabajadoresEmpresa" method="execute">
+			<result name="success">/Paginas/Empresa/VerListado.jsp</result>
+		</action>
+		
+		<action name="calcularsueldoEMP" class="org.remusystem.actions.CalcularSueldoTrabajador" method="execute">
+			<result name="success">/Paginas/Empresa/MostrarLiquidacion.jsp</result>
+			<result name="error">/Paginas/Empresa/Gestionar.jsp</result>
+		</action>
+		
+		<action name="recalcularsueldoEMP" class="org.remusystem.actions.ReCalcularSueldoTrabajador" method="execute">
+			<result name="success">/Paginas/Empresa/MostrarLiquidacion.jsp</result>
+			<result name="error">/Paginas/Empresa/Gestionar.jsp</result>
+		</action>
+		
+		<action name="MostrarLiquidacion" class="org.remusystem.actions.VerLiquidacion" method="execute">
+			<result name="success">/Paginas/Empresa/MostrarLiquidacion.jsp</result>
+			<result name="error">/Paginas/Empresa/Gestionar.jsp</result>
+		</action>
+		
+		<action name="crearCargo" class="org.remusystem.actions.CrearCargo" method="execute">
+			<result name="success">/Paginas/Empresa/IngEmpleado.jsp</result>
+			<result name="error">/Paginas/Empresa/IngEmpleado.jsp</result>
+		</action>
+		
+		<action name="MostrarLiquidacionTrabajador" class="org.remusystem.actions.VerLiquidacionTrabajador" method="execute">
+			<result name="success">/Paginas/Trabajador/MostrarLiquidacionTrabajador.jsp</result>
+			<result name="error">/Paginas/Trabajador/MostrarLiquidacionTrabajador.jsp</result>
+		</action>
+		
+		<action name="anticipoCargo" class="org.remusystem.actions.Anticipo_Cargo">
+			
+			<result name="success">/Paginas/Empresa/Administrar.jsp</result>
+			<result name="error">/Paginas/Empresa/Administrar.jsp</result>
+		</action>
+		
+		<action name="abonoCargo" class="org.remusystem.actions.Abono_Cargo">
+			
+			<result name="success">/Paginas/Empresa/Administrar.jsp</result>
+			<result name="error">/Paginas/Empresa/Administrar.jsp</result>
+		</action>
+		
+		<action name="anticipoRango" class="org.remusystem.actions.Anticipo_Rango">
+			
+			<result name="success">/Paginas/Empresa/Administrar.jsp</result>
+			<result name="error">/Paginas/Empresa/Administrar.jsp</result>
+		</action>
+		
+		<action name="abonoRango" class="org.remusystem.actions.Abono_Rango">
+			
+			<result name="success">/Paginas/Empresa/Administrar.jsp</result>
+			<result name="error">/Paginas/Empresa/Administrar.jsp</result>
+		</action>
+				
+</package>
+
+<package name="Loads" extends="struts-default">
+	<action name="loadRegEmpresa" class="org.remusystem.actions.Load" method="load">
+		<result>/Paginas/Admin/RegistrarEmp.jsp</result>
+	</action>
+	
+	<action name="loadBuscarLiquidacion" class="org.remusystem.actions.Load" method="">
+		<result>/Paginas/Trabajador/MostrarLiquidacionTrabajador.jsp</result>
+	</action>
+	
+	<action name="loadModVariables" class="org.remusystem.actions.Load" method="load">
+		<result>/Paginas/Admin/ModificarVar.jsp</result>
+	</action>
+	
+	<action name="loadAdministrar" class="org.remusystem.actions.Load" method="load">
+		<result>/Paginas/Empresa/Administrar.jsp</result>
+	</action>
+	
+	<action name="loadGestionar" class="org.remusystem.actions.Load" method="load">
+		<result>/Paginas/Empresa/Gestionar.jsp</result>
+	</action>
+	
+	<action name="loadIngEmpleado" class="org.remusystem.actions.Load" method="load">
+		<result>/Paginas/Empresa/IngEmpleado.jsp</result>
+	</action>
+
+	<action name="loadVerListado" class="org.remusystem.actions.Load" method="load">
+		<result>/Paginas/Empresa/VerListado.jsp</result>
+	</action>
+
+	<action name="loadModificarEMP" class="org.remusystem.actions.LoadModEmp" method="load">
+		<result name="success">/Paginas/Empresa/ModificarDatos.jsp</result>
+		<result name="error">/Paginas/Empresa/Gestionar.jsp</result>
+	</action>
+	
+	<action name="CambiarContrasena" class="org.remusystem.actions.Load" method="load">
+		<result>/Paginas/Trabajador/CambiarCon.jsp</result>
+	</action>
+</package>
+
+<package name="reportes" namespace="/" extends="struts-default,json-default,jasperreports-default">
+
+    <interceptors>
+        <interceptor name="closeConection"
+                     class="org.remusystem.interceptor.CloseConectionReport"></interceptor>
+
+        <interceptor-stack name="closeConectionInterceptorStack">
+            <interceptor-ref name="closeConection"/>
+            <interceptor-ref name="defaultStack" />
+        </interceptor-stack>
+
+    </interceptors>
+ 
+ 			<action name="Struts2obtenerLiquidacionPDF" class="org.remusystem.actions.reportes.ReportePDFStruts2" >
+                    <interceptor-ref name="closeConectionInterceptorStack"/>
+                    <result name="success" type="jasper">
+ 						<param name="location">/WEB-INF/classes/org/remusystem/actions/reportes/LiquidaciondeSueldo4.jasper</param>
+ 						<param name="connection">conexion</param>
+ 						<param name="reportParameters">parametros</param>
+ 						<param name="format">PDF</param>
+ 						<param name="documentName">LiquidacionTrabajador</param>
+ 					</result>
+ 			</action>
+ 			
+ 			<action name="Struts2obtenerLiquidacionXLS" class="org.remusystem.actions.reportes.ReportePDFStruts2" >
+                <interceptor-ref name="closeConectionInterceptorStack"/>
+                <result name="success" type="jasper">
+ 						<param name="location">/WEB-INF/classes/org/remusystem/actions/reportes/LiquidaciondeSueldo5.jasper</param>
+ 						<param name="connection">conexion</param>
+ 						<param name="reportParameters">parametros</param>
+ 						<param name="format">XLS</param>
+ 						<param name="documentName">LiquidacionTrabajador</param>
+ 					</result>
+ 			</action>
+ 			
+ 			<action name="Struts2obtenerLibroPDF" class="org.remusystem.actions.reportes.LibroReportePDFStruts2" >
+                    <interceptor-ref name="closeConectionInterceptorStack"/>
+                    <result name="success" type="jasper">
+ 						<param name="location">/WEB-INF/classes/org/remusystem/actions/reportes/LibrodeRemuneraciones2.jasper</param>
+ 						<param name="connection">conexion</param>
+ 						<param name="reportParameters">parametros</param>
+ 						<param name="format">PDF</param>
+ 						<param name="documentName">LibrodeRemuneraciones</param>
+ 					</result>
+ 			</action>
+ 			
+ 			<action name="Struts2obtenerLibroXLS" class="org.remusystem.actions.reportes.LibroReportePDFStruts2" >
+                <interceptor-ref name="closeConectionInterceptorStack"/>
+                <result name="success" type="jasper">
+ 						<param name="location">/WEB-INF/classes/org/remusystem/actions/reportes/LibrodeRemuneraciones2.jasper</param>
+ 						<param name="connection">conexion</param>
+ 						<param name="reportParameters">parametros</param>
+ 						<param name="format">XLS</param>
+ 						<param name="documentName">LibrodeRemuneraciones</param>
+ 					</result>
+ 			</action>
+ 			
+ 			<action name="obtenerLiquidacionPDFTrabajador" class="org.remusystem.actions.reportes.ReportePDFTrabajador" >
+                <interceptor-ref name="closeConectionInterceptorStack"/>
+                <result name="success" type="jasper">
+ 						<param name="location">/WEB-INF/classes/org/remusystem/actions/reportes/LiquidaciondeSueldo4.jasper</param>
+ 						<param name="connection">conexion</param>
+ 						<param name="reportParameters">parametros</param>
+ 						<param name="format">PDF</param>
+ 						<param name="documentName">LiquidaciondeSueldo</param>
+ 					</result>
+ 			</action>
+ 			
+ 			<action name="obtenerLiquidacionXLSTrabajador" class="org.remusystem.actions.reportes.ReportePDFTrabajador" >
+                <interceptor-ref name="closeConectionInterceptorStack"/>
+                <result name="success" type="jasper">
+ 						<param name="location">/WEB-INF/classes/org/remusystem/actions/reportes/LiquidaciondeSueldo5.jasper</param>
+ 						<param name="connection">conexion</param>
+ 						<param name="reportParameters">parametros</param>
+ 						<param name="format">XLS</param>
+ 						<param name="documentName">LiquidaciondeSueldo</param>
+ 					</result>
+ 			</action>
+ 			
+ 			<action name="CalcularRemuneracionParaTodos" class="org.remusystem.actions.CalcularSueldoTrabajadoresALL">
+                <interceptor-ref name="closeConectionInterceptorStack"/>
+                <result name="success" type="jasper">
+ 						<param name="location">/WEB-INF/classes/org/remusystem/actions/reportes/LiquidaciondeSueldoTODOS.jasper</param>
+ 						<param name="connection">conexion</param>
+ 						<param name="reportParameters">parametros</param>
+ 						<param name="format">PDF</param>
+ 						<param name="documentName">LiquidaciondeSueldoTodas</param>
+ 					</result>
+			</action>
+ 			
+ 
+</package>
+
+</struts>    

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DatosEmpresaLibro" pageWidth="220" pageHeight="100" columnWidth="220" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_empresa" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     empresa.`rut` AS empresa_rut,
+     empresa.`nombre` AS empresa_nombre,
+     empresa.`giro` AS empresa_giro,
+     empresa.`direccion` AS empresa_direccion,
+     empresa.`telefono` AS empresa_telefono
+FROM
+     `empresa` empresa
+WHERE
+     empresa.`Id` = $P{id_empresa}]]>
+	</queryString>
+	<field name="empresa_rut" class="java.lang.String"/>
+	<field name="empresa_nombre" class="java.lang.String"/>
+	<field name="empresa_giro" class="java.lang.String"/>
+	<field name="empresa_direccion" class="java.lang.String"/>
+	<field name="empresa_telefono" class="java.lang.String"/>
+	<summary>
+		<band height="100">
+			<textField>
+				<reportElement x="50" y="25" width="170" height="25"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{empresa_nombre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="75" width="50" height="25"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Telefono:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="50" height="25"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="50" width="50" height="25"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Giro:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="50" height="25"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Rut:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="50" width="170" height="25"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{empresa_giro}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="75" width="170" height="25"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{empresa_telefono}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="50" y="0" width="170" height="25"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{empresa_rut}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

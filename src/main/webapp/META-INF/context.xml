@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+<!--    <ResourceLink name="authorizationDataSource"
+                  global="authorizationDataSource"
+                  type="javax.sql.DataSource"/>-->
+
+</Context>

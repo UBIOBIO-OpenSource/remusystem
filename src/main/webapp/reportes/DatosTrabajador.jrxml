@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="DatosTrabajador" pageWidth="542" pageHeight="80" columnWidth="542" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_rel" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     trabajador.`rut` AS trabajador_rut,
+     trabajador.`nombre` AS trabajador_nombre,
+     trabajador.`apellido_paterno` AS trabajador_apellido_paterno,
+     trabajador.`apellido_materno` AS trabajador_apellido_materno,
+     trabajador.`fecha_nacimiento` AS trabajador_fecha_nacimiento,
+     trabajador.`nacionalidad` AS trabajador_nacionalidad,
+     trabajador.`direccion` AS trabajador_direccion,
+     trabajador.`telefono_fijo` AS trabajador_telefono_fijo,
+     trabajador.`celular` AS trabajador_celular,
+     trabajador.`numero_cargas` AS trabajador_numero_cargas,
+     trabajador.`email` AS trabajador_email
+FROM
+     `trabajador` trabajador INNER JOIN `relacion_laboral` relacion_laboral ON trabajador.`Id` = relacion_laboral.`id_trabajador`
+WHERE relacion_laboral.`Id`=$P{id_rel}]]>
+	</queryString>
+	<field name="trabajador_rut" class="java.lang.String"/>
+	<field name="trabajador_nombre" class="java.lang.String"/>
+	<field name="trabajador_apellido_paterno" class="java.lang.String"/>
+	<field name="trabajador_apellido_materno" class="java.lang.String"/>
+	<field name="trabajador_fecha_nacimiento" class="java.sql.Date"/>
+	<field name="trabajador_nacionalidad" class="java.lang.String"/>
+	<field name="trabajador_direccion" class="java.lang.String"/>
+	<field name="trabajador_telefono_fijo" class="java.lang.String"/>
+	<field name="trabajador_celular" class="java.lang.String"/>
+	<field name="trabajador_numero_cargas" class="java.lang.Integer"/>
+	<field name="trabajador_email" class="java.lang.String"/>
+	<summary>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Rut:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="20" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="20" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Apellido Paterno:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="90" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Fecha Nacimiento:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Direccion:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="20" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Apellido Materno:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="0" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Celular:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="60" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Email:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="40" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Nacionalidad:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="40" width="90" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Numero de Cargas:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="0" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Telefono:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="90" y="0" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_rut}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="20" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="20" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_apellido_paterno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="40" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_fecha_nacimiento}.toString()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="20" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_apellido_materno}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="90" y="60" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_direccion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="60" width="90" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_email}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_celular}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="40" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_nacionalidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="270" y="0" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_telefono_fijo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="40" width="90" height="20"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_numero_cargas}.toString()]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
