@@ -45,13 +45,14 @@ public class ReportePDFTrabajador extends ActionSupport implements SessionAware{
 	
 	public String execute() throws Exception{
 		RelacionLaboral rel = (RelacionLaboral) session.get("Rel_PRO");
-		String mes = TransformarMes(fecha.getMonth());
-		Integer numAnio = fecha.getYear()+1900;
-		
-		parametros = new HashMap<String, Object>();
+
+        String mes=(String) session.get("VerMes");
+        String Anio=(String) session.get("VerAnio");
+
+        parametros = new HashMap<String, Object>();
 		parametros.put("id_rel", Integer.toString(rel.getId()));
 		parametros.put("Mes", mes);
-		parametros.put("Anio", Integer.toString(numAnio));
+		parametros.put("Anio", Anio);
 		String fullPath = System.getenv("remusystem_report");
 	    if(fullPath==null){
 	           fullPath="/home/remusystem/remu_report/";

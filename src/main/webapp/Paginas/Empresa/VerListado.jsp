@@ -156,7 +156,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    		        
 	        onSelectRowTopics="rowselect"
 	        navigatorAdd="false"
-	        navigatorSearch="false" 
+	        navigatorSearch="false"
 		    navigatorRefresh="true"
 		    navigatorDelete="false"
 		    navigatorEdit="true" 
@@ -239,10 +239,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    		
 		    	<sjg:gridColumn name="sexo" index="sexo" title="Sexo" 
 		    		sortable="true"
-		    		search="true"
+		    		search="false"
 		    		editable="false"
 	    			edittype="text" 
 		    		editoptions="{size: 30}"
+		    		hidden="true"
     		/>
 		    		
 		    	<sjg:gridColumn name="direccion" index="direccion" title="Dirección"  
@@ -314,8 +315,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="box pad_bot1">
 				<div class="pad marg_top">
 					<article class="">
-   			<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small"/>
-   			<s:actionmessage cssClass="ui-state-highlight" cssStyle="font-size-small"/>
+   			<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small;margin: 25px;text-align: center;padding: 10px"/>
+   			<s:actionmessage cssClass="ui-state-highlight"  cssStyle="font-size-small;margin: 25px;text-align: center"/>
     	    <s:form id="obtenerLibroPDF" name="ObtenerLibroPDF" action="Struts2obtenerLibroPDF" >
    			<s:select cssClass="bg" label="Mes" id="MesLibro" name="MesLibro" headerKey="-1" headerValue="Seleccione el Mes" list="#{'Enero':'Enero','Febrero':'Febrero','Marzo':'Marzo','Abril':'Abril','Mayo':'Mayo','Junio':'Junio','Julio':'Julio','Agosto':'Agosto','Septiembre':'Septiembre','Octubre':'Octubre','Noviembre':'Noviembre','Diciembre':'Diciembre'}"/>
     		<s:select cssClass="bg" label="Año" id="AnioLibro" name="AnioLibro" headerKey="-1" headerValue="Seleccione el Año" list="#{'2012':'2012','2013':'2013','2014':'2014','2015':'2015'}"/>
@@ -358,23 +359,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  </div>
 </section>
 <!-- content -->
-<!-- footer -->	
-	<footer>
-	Software desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
-	como requisito parcial para la obtención del título de Ingeniero Civil Informático por la Universidad del Bíobio<br>
-	Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
-	 
-	
-	</footer>
-		
-	
+
+</div>
+<!-- footer -->
+    <footer>
+        <div align="center">
+        <a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
+            <p><br>
+            REMUSYSTEM , es desarrollado y mantenido por alumnos, ex-alumnos y profesores de la carrera de Ingeniería Civil Informática de la <br>
+            <a href="http://www.ubiobio.cl/face/">Facultad de Ciencias Empresariales de la Universidad del Bío-Bío.</a>
+            La versión inicial fue desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
+    	    como requisito parcial para la obtención del título de Ingeniero Civil Informático.
+    	    <br><br>
+    	    <a href="www.remusystem.org">www.remusystem.org</a><br>
+    	    Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
+
+        </div>
+    </footer>
 <!-- / footer -->
-</div>
-<div align="center">
-<a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
-<a href="#" id="Footer_logo"> </a>
-</div>
-
-
 </body>
 </html>

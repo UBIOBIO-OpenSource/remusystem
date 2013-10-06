@@ -69,7 +69,7 @@ public class ModificarEmpresa extends ActionSupport implements SessionAware{
 			addActionMessage("Se han modificado los datos");
 			return SUCCESS;
 		} else {
-			addActionError("La contrase�a actual que ha ingresado no coincide con la de nuestros datos");
+			addActionError("La contraseña actual que ha ingresado no coincide con la de nuestros datos");
 			return ERROR;
 		}
 		

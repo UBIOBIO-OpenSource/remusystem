@@ -24,29 +24,29 @@ public class VerLiquidacionTrabajador extends ActionSupport implements SessionAw
 	
 	
 	//variables para mostarlas en el resumen despues
-	private Double SueldoBaseImponibleTrabajado;
-	private Double HorasExtrasTrabajadas;
-	private Double ValorGratificacion;
-	private Double AbonosImponibles;
-	private Double AbonosImponiblesNoTributables;
-	private Double BaseImponible;
-	private Double cotizarAFP;
-	private Double cotizarSalud;
-	private Double cargoTrabajadorAFC;
-	private Double cargoEmpleadorAFC;
-	private Double SegurodeCesantia;
-	private Double AbonosNoImponiblesTributables;
-	private Double BaseTributable;
-	private Double ImpuestoTributarioaPagar;
-	private Double SuelDspsImpto;
-	private Double AbonosNoImponiblesNoTributables;
-	private Double Anticipos;
-	private Double SueldoLiquido;
-	private Double AsignacionaPagar;
+	private Double SueldoBaseImponibleTrabajado=0.0;
+	private Double HorasExtrasTrabajadas=0.0;
+	private Double ValorGratificacion=0.0;
+	private Double AbonosImponibles=0.0;
+	private Double AbonosImponiblesNoTributables=0.0;
+	private Double BaseImponible=0.0;
+	private Double cotizarAFP=0.0;
+	private Double cotizarSalud=0.0;
+	private Double cargoTrabajadorAFC=0.0;
+	private Double cargoEmpleadorAFC=0.0;
+	private Double SegurodeCesantia=0.0;
+	private Double AbonosNoImponiblesTributables=0.0;
+	private Double BaseTributable=0.0;
+	private Double ImpuestoTributarioaPagar=0.0;
+	private Double SuelDspsImpto=0.0;
+	private Double AbonosNoImponiblesNoTributables=0.0;
+	private Double Anticipos=0.0;
+	private Double SueldoLiquido=0.0;
+	private Double AsignacionaPagar=0.0;
 	
 	//sumatorias no consideradas
-	private Double Total_desc_prev;
-	private Double Total_otros_haberes;
+	private Double Total_desc_prev=0.0;
+	private Double Total_otros_haberes=0.0;
 	
 	//Fecha de Emision
 	private Date fechaEmitida; //esto es para la busqueda de los descuentos
@@ -58,9 +58,7 @@ public class VerLiquidacionTrabajador extends ActionSupport implements SessionAw
 		
 		LiquidacionDeSueldoDAO liqDAO = new LiquidacionDeSueldoDAO();
 		
-		System.out.println("Estamos Imprimiendo el Mes: "+Mes);
-		System.out.println("Estamos Imprimiendo el Anio: "+Anio);
-		
+
 		Integer numAnio = Integer.parseInt(Anio);
 		if(rel!=null){
 			
@@ -72,6 +70,10 @@ public class VerLiquidacionTrabajador extends ActionSupport implements SessionAw
 			fechaEmitida = li.getFechaEmision();
 			session.remove("fechaLiquidacion");
 			session.put("fechaLiquidacion", fechaEmitida);
+            session.remove("VerMes");
+            session.remove("VerAnio");
+            session.put("VerMes", Mes);
+            session.put("VerAnio",Anio);
 			List<DetalleLiquidacion> detalles = dDAO.findByIdLiquidacion(li.getId());
 			System.out.println(detalles);
 			for(int i=0; i<detalles.size(); i++){
@@ -154,13 +156,13 @@ public class VerLiquidacionTrabajador extends ActionSupport implements SessionAw
 			}
 			Total_desc_prev = cotizarAFP + cotizarSalud + SegurodeCesantia;
 			Total_desc_prev = Redondear(Total_desc_prev, 2);
-			Total_otros_haberes = AsignacionaPagar + AbonosNoImponiblesNoTributables;
+			Total_otros_haberes = AsignacionaPagar + AbonosNoImponiblesNoTributables+AbonosNoImponiblesTributables;
 			
 			
 			return SUCCESS;
 			
 		}else{
-			addActionError("No se han encontrado liquidacion de sueldo para el mes y a�o seleccionados");
+			addActionError("No se han encontrado liquidacion de sueldo para el mes y año seleccionados");
 			return ERROR;
 		}
 		}else{

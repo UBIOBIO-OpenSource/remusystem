@@ -45,7 +45,7 @@ public class Login extends ActionSupport {
 					return result;
 			}
 			}
-			addActionError("Usuario y/o Contrase�a invalido revise los datos ingresados");
+			addActionError("Usuario/Contraseña no válido");
 			result = "error";
 		    return result;		
 	}

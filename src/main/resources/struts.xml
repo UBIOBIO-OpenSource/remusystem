@@ -219,7 +219,7 @@
 		</action>
 		
 		<action name="recalcularsueldoEMP" class="org.remusystem.actions.ReCalcularSueldoTrabajador" method="execute">
-			<result name="success">/Paginas/Empresa/MostrarLiquidacion.jsp</result>
+			<result name="success">/Paginas/Empresa/Gestionar.jsp</result>
 			<result name="error">/Paginas/Empresa/Gestionar.jsp</result>
 		</action>
 		

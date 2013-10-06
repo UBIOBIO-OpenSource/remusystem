@@ -1,23 +1,12 @@
 package org.remusystem.actions;
 
-import java.io.File;
-import java.sql.DriverManager;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
-import net.sf.jasperreports.engine.JasperCompileManager;
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.SessionAware;
-import org.apache.struts2.views.jasperreports.ValueStackShadowMap;
-import org.hibernate.dialect.InformixDialect;
 import org.remusystem.actions.reportes.ReportConector;
 import org.remusystem.persistencia.*;
 
@@ -26,8 +15,6 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import org.remusystem.control.Controlador;
 import org.remusystem.control.NumLetrasJ;
-
-import javax.servlet.ServletContext;
 
 public class CalcularSueldoTrabajadoresALL extends ActionSupport implements SessionAware {
 
@@ -42,6 +29,8 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
     private Date fecha = new Date();
     private Map<String, Object> parametros;
     private Connection conexion;
+    private String AnioCalcular;
+    private String MesCalcular;
     //variables para mostarlas en el resumen despues
     private Double SueldoBaseImponibleTrabajado;
     private Double HorasExtrasTrabajadas;
@@ -63,26 +52,63 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
     private Double SueldoLiquido;
     private Double AsignacionaPagar;
 
+    //sumatorias no consideradas
+    private Double Total_desc_prev;
+    private Double Total_otros_haberes;
+
     public String execute() {
 
         Controlador control = Controlador.getInstance();
 
         String Mes = TransformarMes(Fecha.getMonth()); //transforma el numero del 0-11 en el nombre del mes
 
-        System.out.println("Numero día? :" + Fecha.getDate());
-        System.out.println("Numero MES: " + Fecha.getMonth());
-        System.out.println("fecha: " + Mes);
         Integer numAnio = Fecha.getYear() + 1900;
-        System.out.println("Año: " + numAnio);
-        System.out.println("fecha: " + Fecha);
-
-        System.out.println(getHorasExtras());
-        System.out.println(getDias());
 
         Usuario user = (Usuario) session.get("User");
         Empresa emp = control.buscaEmpresa(user.getRut());
 
         todosEMP = control.RelacionIdEmpresa(emp.getId());
+        //defino topes y valores
+        TopesDAO tDAO = new TopesDAO(); //iniciamos variables
+        List<Topes> topes = tDAO.findAll(); //iniciamos variables
+        ValoresDAO vDAO = new ValoresDAO(); //iniciamos variables
+        List<Valores> valores = vDAO.findAll(); //iniciamos variables
+        Double topeImponibleAFP = 0.0;
+        Double topeImponible = 0.0; //iniciamos variables
+        Double topeImponibleIPS = 0.0;
+        Double topeSeguroCesantia = 0.0; //iniciamos variables
+        Double topeAPV = 0.0;  //iniciamos variables
+        Double topeGratificacion = 0.0; //MRV: Faltaba en el programa original
+        Double montoUF_mesAnterior = valores.get(1).getMonto();
+        Double montoUF_mesActual = valores.get(2).getMonto();
+        Double montoUTM_mesActual = valores.get(3).getMonto();
+        Double descSaludMinimoLegal=valores.get(4).getMonto();
+
+        Mes=valores.get(0).getNombre();
+        setMesCalcular(Mes);
+
+        StringTokenizer st=new StringTokenizer(new Double(valores.get(0).getMonto()).toString(),".");
+        setAnioCalcular(st.nextToken());
+
+        numAnio=Integer.parseInt(getAnioCalcular());
+        //se obtienen los topes en UF.
+        for (int i = 0; i < topes.size(); i++) { //obtengo los topes
+
+            if (topes.get(i).getNombre().equals("Tope Imponible AFP")) {
+                topeImponibleAFP = topes.get(i).getMontoUf();
+            } else if (topes.get(i).getNombre().equals("Tope Imponible IPS")) {
+                topeImponibleIPS = topes.get(i).getMontoUf();
+            } else if (topes.get(i).getNombre().equals("Tope Seguro Cesantia")) { //tope seguro cesantia
+                topeSeguroCesantia = topes.get(i).getMontoUf();
+            } else if (topes.get(i).getNombre().equals("Tope APV")) { //tope ahorro previsional Voluntario
+                topeAPV = topes.get(i).getMontoUf(); //tope imponible AFP
+            } else if (topes.get(i).getNombre().equals("Tope Gratificación")) { //tope Gratificación
+                //OBS: El tope está en pesos!!!
+                topeGratificacion = topes.get(i).getMontoUf();
+            }
+        }
+
+
         if (todosEMP != null) {
             for (int j = 0; j < todosEMP.size(); j++) {
 
@@ -90,35 +116,29 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                 LiquidacionDeSueldoDAO liqDAO = new LiquidacionDeSueldoDAO();
                 LiquidacionDeSueldo li = liqDAO.findBYIDrelAnioMes(rel.getId(), numAnio, Mes);
 
-                if (li == null) {
-
+                if ((li == null)&&((rel.getTipoContrato().equalsIgnoreCase("indefinido"))||(esVigente(rel.getFechaFin())))){
+                    //si no existe la liquidación!
                     Trabajador trab = rel.getTrabajador();
                     Integer SueldoBase = rel.getSueldoBase();
-                    TopesDAO tDAO = new TopesDAO(); //iniciamos variables
-                    List<Topes> topes = tDAO.findAll(); //iniciamos variables
-                    ValoresDAO vDAO = new ValoresDAO(); //iniciamos variables
-                    List<Valores> valores = vDAO.findAll(); //iniciamos variables
-                    Double TopeImponible = 0.0; //iniciamos variables
-                    Double TopeSeguroCesantia = 0.0; //iniciamos variables
-                    Double TopeAPV = 0.0;  //iniciamos variables
+                    Double DiffPlanIsapre7porciento = 0.0;
 
 
-                    for (int i = 0; i < topes.size(); i++) { //obtengo los topes
-                        if (topes.get(i).getNombre().equals("Tope Imponible")) {
-                            TopeImponible = topes.get(i).getMontoUf() * valores.get(1).getMonto(); //tope imponible AFP
-                            System.out.println(TopeImponible);
-                        } else if (topes.get(i).getNombre().equals("Tope Seguro Cesantia")) { //tope seguro cesantia
-                            TopeSeguroCesantia = topes.get(i).getMontoUf() * valores.get(1).getMonto();
-                            System.out.println(TopeSeguroCesantia);
-                        } else if (topes.get(i).getNombre().equals("Tope APV")) { //tope ahorro previsional Voluntario
-                            TopeAPV = topes.get(i).getMontoUf() * valores.get(1).getMonto();
-                            System.out.println(TopeAPV);
-                        }
-                    }
+                    /**ajusto los topes en UF a $ segun corresponda:
+                     * si está en AFP se usa el valor de la UF del último día del mes de remuneración (actual)
+                     * si está en IPS se usa el valor de la UF del último día del mes ANTERIOR al de la remuneración
+                     * el tope AFC es siempre con la UF del último día del mes de remuneración.
+                     *
+                     */
+                    Boolean esAFP=rel.getInstitucionPrevision().getNombre().contains("AFP");
+                    Double UF_Calculo = (esAFP) ? montoUF_mesActual : montoUF_mesAnterior;
+                    topeImponible = (esAFP) ? topeImponibleAFP : topeImponibleIPS;
+                    topeImponible = topeImponible * UF_Calculo;
+                    topeSeguroCesantia = topeSeguroCesantia * montoUF_mesActual;
+                    topeAPV = topeAPV * UF_Calculo;
 
-                    Double valorhoraextra = ((((SueldoBase / 30) * 7)) / 45) * 1.5; //formula extraida del apunte de la profesora
                     String suel = String.valueOf(SueldoBase); //paso el sueldo base a string
                     Double Sueldo = Double.parseDouble(suel); //lo transformo en double
+                    Double valorhoraextra = ((((Sueldo / 30) * 7)) / 45) * 1.5; //formula extraida del apunte de la profesora
                     Double valordia = (Sueldo / 30); //calculo el valor diario
                     Double valorhoranormal = (((Sueldo / 30) * 7)) / 45; //calculo el valor de la hora
 
@@ -130,8 +150,12 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     } else {
                         SueldoBaseImponibleTrabajado = valordia * (Integer.parseInt(Dias)); //valor imponible de los dias trabajados
                     }
+
                     HorasExtrasTrabajadas = valorhoraextra * (Integer.parseInt(HorasExtras)); //valor imponible de las horas extras
-                    ValorGratificacion = calculagratificacion(Sueldo); //entrega el valor imponible de la gratificacion
+                    //es sobre el sueldo o sobre el sueldo + h. extras?
+                    ValorGratificacion = calculagratificacion(Sueldo, topeGratificacion); //entrega el valor imponible de la gratificacion + tope de los parámetros.
+
+                    //Falta sumar haberes imponibles y haberes imponibles no tributables.
                     BaseImponible = (SueldoBaseImponibleTrabajado + HorasExtrasTrabajadas + ValorGratificacion);
 
                     System.out.println("SueldoBaseImponibleTrabajado: " + SueldoBaseImponibleTrabajado);
@@ -148,64 +172,61 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     List<Abonos> abonosImponibles = new ArrayList<Abonos>();
                     AbonosImponibles = 0.0;
                     AbonosImponiblesNoTributables = 0.0;
+
                     if (abonos != null) {
+                        //obtiene el total de abonos imponibles  tributables
                         for (int i = 0; i < abonos.size(); i++) {
                             Abonos abonotemporal = abonos.get(i).getAbonos();
-                            if (calcularFechaFinal(abonotemporal.getFechaFinal()).after(Fecha) && (abonotemporal.getTipoAbono().equals("Imponible Tributable"))) {
-                                Integer AbonoRevisado = abonotemporal.getMonto();
+                            if (esVigente(abonotemporal.getFechaFinal()) && (abonotemporal.getTipoAbono().equals("Imponible Tributable"))) {
                                 AbonosImponibles = AbonosImponibles + abonotemporal.getMonto();
-                                System.out.println(AbonosImponibles);
-                            } else {
-                                AbonosImponibles = AbonosImponibles;
                             }
                         }
 
                         //Sumamos aparte los abonos imponibles no tributables
-
                         for (int i = 0; i < abonos.size(); i++) {
                             Abonos abonotemporal = abonos.get(i).getAbonos();
-                            if (calcularFechaFinal(abonotemporal.getFechaFinal()).after(Fecha) && (abonotemporal.getTipoAbono().equals("Imponible NO Tributable"))) {
-                                Integer AbonoRevisado = abonotemporal.getMonto();
-                                AbonosImponibles = AbonosImponiblesNoTributables + abonotemporal.getMonto();
-                                System.out.println(AbonosImponiblesNoTributables);
-                            } else {
-                                AbonosImponiblesNoTributables = AbonosImponiblesNoTributables;
+                            if (esVigente(abonotemporal.getFechaFinal()) && (abonotemporal.getTipoAbono().equals("Imponible NO Tributable"))) {
+                                AbonosImponiblesNoTributables = AbonosImponiblesNoTributables + abonotemporal.getMonto();
                             }
                         }
                     }
 
                     BaseImponible = BaseImponible + AbonosImponibles + AbonosImponiblesNoTributables;
                     //ya tengo la base imponible que es la variable BaseImponible!!
+
                     //Ahora sacamos los descuentos
                     cotizarAFP = 0.0;
                     InstitucionPrevision AFP = rel.getInstitucionPrevision(); //busco la AFP
-                    if (BaseImponible >= TopeImponible) { //si se cumple cotizamos por el tope imponible para la AFP
-                        cotizarAFP = TopeImponible * AFP.getPorcentajeDescuento(); //calculo el descuento de la afp
-                        System.out.println("CotizarAFP: " + cotizarAFP);
+                    if (BaseImponible >= topeImponible) { //si se cumple cotizamos por el tope imponible para la AFP
+                        cotizarAFP = topeImponible * AFP.getPorcentajeDescuento(); //calculo el descuento de la afp
                     } else {
                         cotizarAFP = BaseImponible * AFP.getPorcentajeDescuento(); //calculo el dscto de la AFP
-                        System.out.println("CotizarAFP: " + cotizarAFP);
                     }
 
                     Double cotSalud = 0.0;
                     cotizarSalud = 0.0;
                     if (rel.getInstitucionSalud().getId().equals(1)) { //para FONASA
-                        cotSalud = BaseImponible * (rel.getInstitucionSalud().getPorcentajeDescuento()); //calculo el dscto
-                        cotizarSalud = cotSalud;
-                        System.out.println("Cotizacion Salud FONASA: " + cotSalud);
+                        if (BaseImponible >= topeImponible) {
+                            cotSalud = topeImponible * (rel.getInstitucionSalud().getPorcentajeDescuento()); //calculo el dscto
+                            cotizarSalud = cotSalud;
+                        } else {
+                            cotSalud = BaseImponible * (rel.getInstitucionSalud().getPorcentajeDescuento()); //calculo el dscto
+                            cotizarSalud = cotSalud;
+                        }
+
                     } else { //para ISAPRE
-                        cotSalud = BaseImponible * 0.07;
-                        Double valorPlanIsapre = rel.getValorPlanIsapre() * valores.get(1).getMonto();
+                        cotSalud = ((BaseImponible>=topeImponible)?BaseImponible:topeImponible) * descSaludMinimoLegal;
+                        Double valorPlanIsapre = rel.getValorPlanIsapre() * montoUF_mesActual;
                         if (valorPlanIsapre >= cotSalud) {//debo cotizar por el valor de la isapre sino por el 7%
                             cotizarSalud = valorPlanIsapre;
-                            System.out.println("Cotizar Salud ISAPRE valor plan%: " + cotizarSalud);
+                            DiffPlanIsapre7porciento = valorPlanIsapre - cotSalud;
+
                         } else {
-                            cotizarSalud = BaseImponible * 0.07;
-                            System.out.println("Cotizar Salud ISAPRE: " + cotizarSalud);
+                            cotizarSalud = cotSalud;
+
                         }
                     }
 
-                    System.out.println("Valor UF Actual: " + valores.get(1).getMonto());
 
                     SeguroCesantiaDAO sDAO = new SeguroCesantiaDAO();
                     List<SeguroCesantia> cesantia = sDAO.findAll();
@@ -213,28 +234,23 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     //el seguro de cesantia
                     cargoEmpleadorAFC = 0.0;
                     cargoTrabajadorAFC = 0.0;
-                    if (BaseImponible < TopeSeguroCesantia) {
+                    if (BaseImponible < topeSeguroCesantia) {
                         if (rel.getTipoContrato().equals("indefinido")) {
                             cargoEmpleadorAFC = BaseImponible * ((cesantia.get(0).getEmpleador()) / 100);
                             cargoTrabajadorAFC = BaseImponible * ((cesantia.get(0).getTrabajador()) / 100);
-                            System.out.println("AFC emp indefinido: " + cargoEmpleadorAFC);
-                            System.out.println("AFC trab indefinido: " + cargoTrabajadorAFC);
-                        } else if (rel.getTipoContrato().equals("fijo")) {
-                            cargoEmpleadorAFC = BaseImponible * ((cesantia.get(0).getEmpleador()) / 100);
 
-                            System.out.println("AFC emp contrato fijo: " + cargoEmpleadorAFC);
+                        } else if (rel.getTipoContrato().equals("fijo")) {
+                            cargoEmpleadorAFC = BaseImponible * ((cesantia.get(1).getEmpleador()) / 100);
 
                         }
                     } else {
                         if (rel.getTipoContrato().equals("indefinido")) {
-                            cargoEmpleadorAFC = TopeSeguroCesantia * ((cesantia.get(0).getEmpleador()) / 100);
-                            cargoTrabajadorAFC = TopeSeguroCesantia * ((cesantia.get(0).getTrabajador()) / 100);
-                            System.out.println("AFC emp indefinido: " + cargoEmpleadorAFC);
-                            System.out.println("AFC trab indefinido: " + cargoTrabajadorAFC);
-                        } else if (rel.getTipoContrato().equals("fijo")) {
-                            cargoEmpleadorAFC = TopeSeguroCesantia * ((cesantia.get(0).getEmpleador()) / 100);
+                            cargoEmpleadorAFC = topeSeguroCesantia * ((cesantia.get(0).getEmpleador()) / 100);
+                            cargoTrabajadorAFC = topeSeguroCesantia * ((cesantia.get(0).getTrabajador()) / 100);
 
-                            System.out.println("AFC emp contrato fijo: " + cargoEmpleadorAFC);
+                        } else if (rel.getTipoContrato().equals("fijo")) {
+                            cargoEmpleadorAFC = topeSeguroCesantia * ((cesantia.get(1).getEmpleador()) / 100);
+
 
                         }
                     }
@@ -245,18 +261,14 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     if (abonos != null) {
                         for (int i = 0; i < abonos.size(); i++) {
                             Abonos abonotemporal = abonos.get(i).getAbonos();
-                            if (calcularFechaFinal(abonotemporal.getFechaFinal()).after(Fecha) && (abonotemporal.getTipoAbono().equals("NO Imponible Tributable"))) {
-                                Integer AbonoRevisado = abonotemporal.getMonto();
+                            if (esVigente(abonotemporal.getFechaFinal()) && (abonotemporal.getTipoAbono().equals("NO Imponible Tributable"))) {
                                 AbonosNoImponiblesTributables = AbonosNoImponiblesTributables + abonotemporal.getMonto();
-                                System.out.println(AbonosNoImponiblesTributables);
-                            } else {
-                                AbonosNoImponiblesTributables = AbonosNoImponiblesTributables;
                             }
                         }
                     }
                     //la base tributable seria entonces
-                    BaseTributable = BaseImponible - cotizarAFP - cotizarSalud - cargoTrabajadorAFC + AbonosNoImponiblesTributables;
-                    System.out.println("Base Tributable = " + BaseTributable);
+                    BaseTributable = BaseImponible - AbonosImponiblesNoTributables - cotizarAFP - (cotizarSalud - DiffPlanIsapre7porciento) - cargoTrabajadorAFC + AbonosNoImponiblesTributables;
+
 
                     //CALCULAMOS EL IMPUESTO TRIBUTARIO O DE SEGUNDA CATEGOR�A.
                     ImpuestoSegundaCategoriaDAO impuestoDAO = new ImpuestoSegundaCategoriaDAO();
@@ -264,7 +276,7 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     ImpuestoTributarioaPagar = calcularImpuesto(BaseTributable);
 
                     //CALCULAMOS LA ASIGNACION FAMILIAR CORRESPONDIENTE
-                    AsignacionaPagar = calcularAsignacionFamiliar(BaseTributable, rel.getTrabajador().getNumeroCargas());
+                    AsignacionaPagar = calcularAsignacionFamiliar(BaseImponible, rel.getTrabajador().getNumeroCargas());
 
                     //Le restamos a la base tributable el impuesto a pagar
                     SuelDspsImpto = BaseTributable - ImpuestoTributarioaPagar;
@@ -275,12 +287,8 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     if (abonos != null) {
                         for (int i = 0; i < abonos.size(); i++) {
                             Abonos abonotemporal = abonos.get(i).getAbonos();
-                            if (calcularFechaFinal(abonotemporal.getFechaFinal()).after(Fecha) && (abonotemporal.getTipoAbono().equals("NO Imponible NO Tributable"))) {
-                                Integer AbonoRevisado = abonotemporal.getMonto();
+                            if (esVigente(abonotemporal.getFechaFinal()) && (abonotemporal.getTipoAbono().equals("NO Imponible NO Tributable"))) {
                                 AbonosNoImponiblesNoTributables = AbonosNoImponiblesNoTributables + abonotemporal.getMonto();
-                                System.out.println("Abonos No Imp No tri: " + AbonosNoImponiblesTributables);
-                            } else {
-                                AbonosNoImponiblesNoTributables = AbonosNoImponiblesNoTributables;
                             }
                         }
                     }
@@ -292,21 +300,22 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     if (solicitudAnticipos != null) {
                         for (int i = 0; i < solicitudAnticipos.size(); i++) {
                             OtrosDescuentos anticipotemporal = solicitudAnticipos.get(i).getOtrosDescuentos();
-                            if (calcularFechaFinal(anticipotemporal.getFechaFinal()).after(Fecha)) {
-                                Integer AnticipoRevisado = anticipotemporal.getMonto();
+                            if (esVigente(anticipotemporal.getFechaFinal())) {
                                 Anticipos = Anticipos + anticipotemporal.getMonto();
-                                System.out.println("Anticipos: " + Anticipos);
-                            } else {
-                                Anticipos = Anticipos;
                             }
                         }
                     }
 
 
                     //calculamos el sueldo liquido :D
-                    SueldoLiquido = SuelDspsImpto + AbonosNoImponiblesNoTributables - Anticipos + AsignacionaPagar;
-                    System.out.println("Sueldo Liquido: " + SueldoLiquido);
+                    Double totHaber = BaseImponible + AbonosNoImponiblesNoTributables + AbonosNoImponiblesTributables + AsignacionaPagar;
+                    Double totDesc = cotizarAFP + cotizarSalud + cargoTrabajadorAFC + ImpuestoTributarioaPagar + Anticipos;
+                    SueldoLiquido = totHaber - totDesc;
 
+                    SegurodeCesantia = cargoTrabajadorAFC;
+                    Total_desc_prev = cotizarAFP + cotizarSalud + SegurodeCesantia;
+                    Total_desc_prev = Redondear(Total_desc_prev, 2);
+                    Total_otros_haberes = AsignacionaPagar + AbonosNoImponiblesNoTributables;
 
                     //Ahora que ya tenemos todo veamos como lo guardamos en el modelo :S
                     LiquidacionDeSueldoDAO lDAO = new LiquidacionDeSueldoDAO();
@@ -317,38 +326,39 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
 
 
                     //Primero Ingresamos los datos de la liquidacion (datos de fecha)
-                    liquidacion.setAnio(Integer.toString(numAnio)); //el a�o es un entero que sale de la operacion 1900 - fechaactual, por eso le sumo 1900
+                    liquidacion.setAnio(AnioCalcular); //el a�o es un entero que sale de la operacion 1900 - fechaactual, por eso le sumo 1900
                     liquidacion.setFechaEmision(Fecha);
                     liquidacion.setFechaPago(Fecha);
-                    liquidacion.setMes(Mes);
+                    liquidacion.setMes(MesCalcular);
                     liquidacion.setRelacionLaboral(rel);
                     control.guardarLiquidacion(liquidacion); //agregamos a la BD
 
                     //como ya tenemos lista la liquidacion iniciamos con el detalle que esta contendra...
-            /* variables a guardar:
-			 * (+) SuedloBaseImponibleTrabajado: representa el sueldo fijo
-			 * (+) HorasExtrasTrabajadas: Representa las horas extras del mes.
-			 * (+) ValorGratificacion: gratificacion obligatoria 25%
-			 * (+) AbonosImponibles: sumatoria de los abonos imponibles
-			 * (+) AbonosImponiblesNoTributables: sumatoria abonos imp no tributables
-			 * ..........................BaseImponible...........................
-			 * (-) cotizarAFP: descuento AFP
-			 * (-) cotizarSalud: fonasa o isapre
-			 * (-) SeguroCesantia: seguro cesantia		
-			 * 			(+) cargoTrabajadorAFC: seguro cesantia trabajador 2.4 %
-			 * 			(+) cargoEmpleadorAFC: seguro cesantia empleador 0.6%
-			 * (+) AbonosNoImponiblesTributables: abonos
-			 * ..........................BaseTributable.........................
-			 * (-) ImpuestoTributarioaPagar
-			 * ..........................SuelDspsImpto..........................
-			 * (+) AbonosNoImponiblesNoTributables
-			 * (-) Anticipos
-			 * ..........................SueldoLiquido..........................
-			 */
+        /* variables a guardar:
+         * (+) SuedloBaseImponibleTrabajado: representa el sueldo fijo
+         * (+) HorasExtrasTrabajadas: Representa las horas extras del mes.
+         * (+) ValorGratificacion: gratificacion obligatoria 25%
+         * (+) AbonosImponibles: sumatoria de los abonos imponibles
+         * (+) AbonosImponiblesNoTributables: sumatoria abonos imp no tributables
+         * ..........................BaseImponible...........................
+         * (-) cotizarAFP: descuento AFP
+         * (-) cotizarSalud: fonasa o isapre
+         * (-) SeguroCesantia: seguro cesantia
+         * 			(+) cargoTrabajadorAFC: seguro cesantia trabajador 2.4 %
+         * 			(+) cargoEmpleadorAFC: seguro cesantia empleador 0.6%
+         * (+) AbonosNoImponiblesTributables: abonos
+         * ..........................BaseTributable.........................
+         * (-) ImpuestoTributarioaPagar
+         * ..........................SuelDspsImpto..........................
+         * (+) AbonosNoImponiblesNoTributables
+         * (-) Anticipos
+         * ..........................SueldoLiquido..........................
+         */
 
                     //detalle sueldo base imponible
                     DetalleLiquidacion suelBase = new DetalleLiquidacion();
-                    suelBase.setDescripcion("Sueldo Base (dias u horas*valor dia u hora)");
+                    String msg = (Horas) ? "Horas" : "Dias";
+                    suelBase.setDescripcion("Sueldo Base (" + Dias + msg +  ")");
                     Double sbRedondeado = Redondear(SueldoBaseImponibleTrabajado, 2);
                     suelBase.setMonto(sbRedondeado);
                     suelBase.setPosicion(1);
@@ -357,11 +367,9 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     //agregamos informacion complementaria
                     InfoComplementaria infosuelBase = new InfoComplementaria();
                     if (Horas) {
-                        Double fRedondeado = Redondear(valorhoranormal, 2);
-                        infosuelBase.setFactor(fRedondeado);
+                        infosuelBase.setFactor(Redondear(valorhoranormal, 2));
                     } else {
-                        Double fRedondeado = Redondear(valordia, 2);
-                        infosuelBase.setFactor(fRedondeado);
+                        infosuelBase.setFactor(Redondear(valordia, 2));
                     }
                     infosuelBase.setBaseDeCalculo(Redondear(Double.parseDouble(Dias), 2));
                     infosuelBase.setDetalleLiquidacion(suelBase);
@@ -369,7 +377,7 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
 
                     //detalle sueldo Horas Extras
                     DetalleLiquidacion horasExtras = new DetalleLiquidacion();
-                    horasExtras.setDescripcion("Horas Extras (horas*valor hora)");
+                    horasExtras.setDescripcion("Horas Extras (" + HorasExtras + ")");
                     horasExtras.setMonto(Redondear(HorasExtrasTrabajadas, 2));
                     horasExtras.setPosicion(2);
                     horasExtras.setLiquidacionDeSueldo(liquidacion);
@@ -389,6 +397,8 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     gratificacion.setLiquidacionDeSueldo(liquidacion);
                     control.guardarDetalleLiq(gratificacion);
                     //agregamos info complementaria
+
+                    //TODO:VER TOPES de la GRATIFICACION
                     InfoComplementaria infoGratificacion = new InfoComplementaria();
                     infoGratificacion.setFactor(0.25);
                     infoGratificacion.setBaseDeCalculo(Redondear((SueldoBaseImponibleTrabajado + HorasExtrasTrabajadas), 2));
@@ -446,13 +456,13 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     control.guardarDetalleLiq(desctAFP);
                     //agregamos info complementaria
                     InfoComplementaria infodesctAFP = new InfoComplementaria();
-                    if (BaseImponible >= TopeImponible) { //si se cumple cotizamos por el tope imponible para la AFP
+                    if (BaseImponible >= topeImponible) { //si se cumple cotizamos por el tope imponible para la AFP
                         infodesctAFP.setFactor(AFP.getPorcentajeDescuento());
                         infodesctAFP.setBaseDeCalculo(Redondear(BaseImponible, 2));
                         infodesctAFP.setDetalleLiquidacion(desctAFP);
                     } else {
                         infodesctAFP.setFactor(AFP.getPorcentajeDescuento());
-                        infodesctAFP.setBaseDeCalculo(Redondear(TopeImponible, 2));
+                        infodesctAFP.setBaseDeCalculo(Redondear(topeImponible, 2));
                         infodesctAFP.setDetalleLiquidacion(desctAFP);
                     }
                     control.guardarInfoComple(infodesctAFP);
@@ -477,7 +487,7 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                             infodsctoSalud.setBaseDeCalculo(Redondear((rel.getValorPlanIsapre()), 2));
                             infodsctoSalud.setDetalleLiquidacion(dsctoSalud);
                         } else {
-                            infodsctoSalud.setFactor(0.07);
+                            infodsctoSalud.setFactor(descSaludMinimoLegal);
                             infodsctoSalud.setBaseDeCalculo(Redondear(BaseImponible, 2));
                             infodsctoSalud.setDetalleLiquidacion(dsctoSalud);
                         }
@@ -487,29 +497,34 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     //detalle seguroCesantia
                     DetalleLiquidacion dsctSeguroCesantia = new DetalleLiquidacion();
                     dsctSeguroCesantia.setDescripcion("Seguro de Cesantia");
-                    dsctSeguroCesantia.setMonto(Redondear((cargoEmpleadorAFC + cargoTrabajadorAFC), 2));
+                    dsctSeguroCesantia.setMonto(Redondear(cargoTrabajadorAFC, 2));
+                    //dsctSeguroCesantia.setMonto(Redondear((cargoEmpleadorAFC + cargoTrabajadorAFC), 2));
                     dsctSeguroCesantia.setPosicion(9);
                     dsctSeguroCesantia.setLiquidacionDeSueldo(liquidacion);
                     //agregamos info complementaria
                     InfoComplementaria infodsctSeguroCesantia = new InfoComplementaria();
                     control.guardarDetalleLiq(dsctSeguroCesantia);
-                    if (BaseImponible < TopeSeguroCesantia) {
+                    if (BaseImponible < topeSeguroCesantia) {
                         if (rel.getTipoContrato().equals("indefinido")) {
-                            infodsctSeguroCesantia.setFactor(Redondear(((((cesantia.get(0).getEmpleador()) / 100) + ((cesantia.get(0).getTrabajador()) / 100))), 4));
+                            infodsctSeguroCesantia.setFactor(Redondear(((((cesantia.get(0).getTrabajador()) / 100))), 4));
                             infodsctSeguroCesantia.setBaseDeCalculo(Redondear(BaseImponible, 2));
                             infodsctSeguroCesantia.setDetalleLiquidacion(dsctSeguroCesantia);
                         } else if (rel.getTipoContrato().equals("fijo")) {
-                            infodsctSeguroCesantia.setFactor(Redondear(((cesantia.get(0).getEmpleador()) / 100), 4));
-                            infodsctSeguroCesantia.setBaseDeCalculo(Redondear(BaseImponible, 2));
+                            //infodsctSeguroCesantia.setFactor(Redondear(((cesantia.get(0).getEmpleador()) / 100), 4));
+                            //infodsctSeguroCesantia.setBaseDeCalculo(Redondear(BaseImponible, 2));
+                            infodsctSeguroCesantia.setFactor(0.0);
+                            infodsctSeguroCesantia.setBaseDeCalculo(0.0);
                             infodsctSeguroCesantia.setDetalleLiquidacion(dsctSeguroCesantia);
                         } else {
                             if (rel.getTipoContrato().equals("indefinido")) {
-                                infodsctSeguroCesantia.setFactor(Redondear((((cesantia.get(0).getEmpleador()) / 100) + ((cesantia.get(0).getTrabajador()) / 100)), 4));
-                                infodsctSeguroCesantia.setBaseDeCalculo(Redondear(TopeSeguroCesantia, 2));
+                                infodsctSeguroCesantia.setFactor(Redondear((((cesantia.get(0).getTrabajador()) / 100)), 4));
+                                infodsctSeguroCesantia.setBaseDeCalculo(Redondear(topeSeguroCesantia, 2));
                                 infodsctSeguroCesantia.setDetalleLiquidacion(dsctSeguroCesantia);
                             } else if (rel.getTipoContrato().equals("fijo")) {
-                                infodsctSeguroCesantia.setFactor(Redondear(((cesantia.get(0).getEmpleador()) / 100), 4));
-                                infodsctSeguroCesantia.setBaseDeCalculo(Redondear(TopeSeguroCesantia, 2));
+                                //infodsctSeguroCesantia.setFactor(Redondear(((cesantia.get(0).getEmpleador()) / 100), 4));
+                                // infodsctSeguroCesantia.setBaseDeCalculo(Redondear(TopeSeguroCesantia, 2));
+                                infodsctSeguroCesantia.setFactor(0.0);
+                                infodsctSeguroCesantia.setBaseDeCalculo(0.0);
                                 infodsctSeguroCesantia.setDetalleLiquidacion(dsctSeguroCesantia);
                             }
                         }
@@ -628,7 +643,7 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                     infosuelLiquido.setDetalleLiquidacion(suelLiquido);
                     control.guardarInfoComple(infosuelLiquido);
 
-                    SegurodeCesantia = cargoEmpleadorAFC + cargoTrabajadorAFC;
+
                     addActionMessage("Se ha calculado el sueldo ahora puede obtener la liquidacion");
                     try {
                         double sueldoCero = Redondear(SueldoLiquido, 0);
@@ -653,41 +668,32 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                         infosueldoenpalabras.setBaseDeCalculo(0.0);
                         infosueldoenpalabras.setDetalleLiquidacion(sueldoenpalabras);
                         control.guardarInfoComple(infosuelLiquido);
+                        addActionMessage("Se ha calculado el sueldo ahora puede obtener la liquidacion");
 
                     } catch (Exception e) {
-                        addActionError("No sirve la funcion de los numeros");
+                        addActionError("Error interno");
                         e.getStackTrace();// TODO: handle exception
                     }
 
 
-                }//else{
-                //hacer funcion para recalcular el sueldo de los trabajadores que ya poseen liquidacion...
-//				RelacionLaboral rel = todosEMP.get(j);
-//				LiquidacionDeSueldoDAO liqDAO = new LiquidacionDeSueldoDAO();
-//				LiquidacionDeSueldo li = liqDAO.findBYIDrelAnioMes(rel.getId(), numAnio, Mes);
-
-                //}
-
+                }
             }
-            String mes = TransformarMes(fecha.getMonth());
-            Integer numAnio2 = fecha.getYear() + 1900;
 
             try {
                 parametros = new HashMap<String, Object>();
                 parametros.put("id_rel", Integer.toString(emp.getId()));
-                parametros.put("Mes", mes);
-                parametros.put("Anio", Integer.toString(numAnio2));
-
+                parametros.put("Mes", MesCalcular);
+                parametros.put("Anio", AnioCalcular);
 
 
                 String fullPath = System.getenv("remusystem_report");
-                if(fullPath==null){
-				      fullPath="/home/remusystem/remu_report/";
-				}
+                if (fullPath == null) {
+                    fullPath = "/home/remusystem/remu_report/";
+                }
 
                 parametros.put("SUBREPORT_DIR", fullPath);
                 System.out.println(fullPath);
-				//Coneccion BD
+                //Coneccion BD
                 conexion = ReportConector.getConnection();
                 addActionMessage("Se ha calculado el sueldo para todos sus trabajadores espere mientras se carga el reporte (path:" + fullPath + ")");
                 return SUCCESS;
@@ -702,27 +708,50 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
         }
     }
 
-    //arreglo del mes de los anticipos y abonos
-    //para calcular la fecha final segun el numero de cuotas
-    public Date calcularFechaFinal(Date fecha) {
-        SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(fecha);
-        cal.add(Calendar.MONTH, 1);
-        String newdate = dateformat.format(cal.getTime());
-        System.out.println(newdate);
-        return (getDate(newdate));
+
+    //sirve para verificar si el abono está vigente
+    public boolean esVigente( Date fechaFinal) {
+
+        int abonoMesFinal = fechaFinal.getMonth(); //transforma el numero del 0-11 en el nombre del mes
+        int abonoAnioFinal = fechaFinal.getYear() + 1900;
+
+        int anioCal = Integer.parseInt(getAnioCalcular());
+        int mesCal = string2numMes(getMesCalcular());
+
+        return (((abonoAnioFinal > anioCal)||((abonoAnioFinal == anioCal) && (abonoMesFinal >= mesCal))));
+
     }
 
-    //para transformar el string en fecha
-    public Date getDate(String date) {
-        DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-        try {
-            return df.parse(date);
-        } catch (ParseException ex) {
-        }
-        return null;
+    public int string2numMes(String mes) {
+        int numMes;
+        if (mes.equalsIgnoreCase("Enero")) {
+            numMes = 0;
+        } else if (mes.equalsIgnoreCase("Febrero")) {
+            numMes = 1;
+        } else if (mes.equalsIgnoreCase("Marzo")) {
+            numMes = 2;
+        } else if (mes.equalsIgnoreCase("Abril")) {
+            numMes = 3;
+        } else if (mes.equalsIgnoreCase("Mayo")) {
+            numMes = 4;
+        } else if (mes.equalsIgnoreCase("Junio")) {
+            numMes = 5;
+        } else if (mes.equalsIgnoreCase("Julio")) {
+            numMes = 6;
+        } else if (mes.equalsIgnoreCase("Agosto")) {
+            numMes = 7;
+        } else if (mes.equalsIgnoreCase("Septiembre")) {
+            numMes = 8;
+        } else if (mes.equalsIgnoreCase("Octubre")) {
+            numMes = 9;
+        } else if (mes.equalsIgnoreCase("Noviembre")) {
+            numMes = 10;
+        } else if (mes.equalsIgnoreCase("Diciembre")) {
+            numMes = 11;
+        } else numMes = -1;
+        return numMes;
     }
+
 
     public String TransformarMes(Integer nummes) {
         String mes = "";
@@ -766,59 +795,6 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
                 break;
         }
         return mes;
-    }
-
-    public double Redondear(double nD, int nDec) {
-        return Math.round(nD * Math.pow(10, nDec)) / Math.pow(10, nDec);
-    }
-
-    public Double calculagratificacion(Double sueldo) {
-        Double gratificacion = sueldo * 0.25;
-        Double tope = 193000 * 4.75;
-        Double valorAnual = gratificacion * 12;
-        if (valorAnual >= tope) {
-            return tope / 12;
-        } else {
-            return gratificacion;
-        }
-    }
-
-    public double calcularAsignacionFamiliar(double basetributable, Integer numCargas) {
-        Double Asignacion = 0.0;
-        AsignacionFamiliarDAO aDAO = new AsignacionFamiliarDAO();
-        List<AsignacionFamiliar> asigFam = aDAO.findAll();
-        for (int i = 0; i < asigFam.size(); i++) {
-            if ((asigFam.get(i).getDesde() < basetributable) && (asigFam.get(i).getHasta() >= basetributable)) {
-                Double cargas = Double.parseDouble(Integer.toString(numCargas));
-                Asignacion = cargas * asigFam.get(i).getMonto();
-            }
-        }
-
-        return Asignacion;
-    }
-
-    public double calcularImpuesto(double basetributable) { //calcula el impuesto unico de segunga categoria
-        ImpuestoSegundaCategoriaDAO impuestoDAO = new ImpuestoSegundaCategoriaDAO();
-        List<ImpuestoSegundaCategoria> rangos = impuestoDAO.findAll();
-        ValoresDAO vDAO = new ValoresDAO(); //iniciamos variables
-        List<Valores> valores = vDAO.findAll(); //iniciamos variables
-        Double ImpuestoaPagar = 0.0;
-        Double Impuestosinrebaja = 0.0;
-        Double Rebaja = 0.0;
-        for (int i = 0; i < rangos.size(); i++) {
-            if ((((rangos.get(i).getDesde() * valores.get(2).getMonto()) < basetributable)) && ((rangos.get(i).getHasta() * valores.get(2).getMonto()) >= basetributable)) {
-                System.out.println("Factor: " + rangos.get(i).getFactor());
-                System.out.println("RebajaUTM: " + rangos.get(i).getRebaja());
-                Impuestosinrebaja = basetributable * rangos.get(i).getFactor();
-                Rebaja = rangos.get(i).getRebaja() * valores.get(2).getMonto();
-                ImpuestoaPagar = Impuestosinrebaja - Rebaja;
-            }
-        }
-        System.out.println("Valor UTM: " + valores.get(2).getMonto());
-        System.out.println("Impuesto sin rebaja: " + Impuestosinrebaja);
-        System.out.println("Rebaja: " + Rebaja);
-        System.out.println("ImpuestoaPagar: " + ImpuestoaPagar);
-        return ImpuestoaPagar;
     }
 
     public Map getSession() {
@@ -1039,4 +1015,117 @@ public class CalcularSueldoTrabajadoresALL extends ActionSupport implements Sess
     public void setConexion(Connection conexion) {
         this.conexion = conexion;
     }
+
+    public Double getTotal_desc_prev() {
+        return Total_desc_prev;
+    }
+
+
+    public void setTotal_desc_prev(Double totalDescPrev) {
+        Total_desc_prev = totalDescPrev;
+    }
+
+
+    public Double getTotal_otros_haberes() {
+        return Total_otros_haberes;
+    }
+
+
+    public void setTotal_otros_haberes(Double totalOtrosHaberes) {
+        Total_otros_haberes = totalOtrosHaberes;
+    }
+
+        public double Redondear(double nD, int nDec) {
+            return Math.round(nD * Math.pow(10, nDec)) / Math.pow(10, nDec);
+        }
+
+        public Double calculagratificacion(Double sueldo, Double topeGrat) {
+            Double gratificacion = sueldo * 0.25;
+            Double tope = topeGrat;
+            Double valorAnual = gratificacion * 12;
+            if (valorAnual >= tope) {
+                return tope / 12;
+            } else {
+                return gratificacion;
+            }
+        }
+
+        public double calcularAsignacionFamiliar(double basetributable, Integer numCargas) {
+            Double Asignacion = 0.0;
+            AsignacionFamiliarDAO aDAO = new AsignacionFamiliarDAO();
+            List<AsignacionFamiliar> asigFam = aDAO.findAll();
+            for (int i = 0; i < asigFam.size(); i++) {
+                if ((asigFam.get(i).getDesde() < basetributable) && (asigFam.get(i).getHasta() >= basetributable)) {
+                    Double cargas = Double.parseDouble(Integer.toString(numCargas));
+                    Asignacion = cargas * asigFam.get(i).getMonto();
+                }
+            }
+
+            return Asignacion;
+        }
+
+        public double calcularImpuesto(double basetributable) { //calcula el impuesto unico de segunga categoria
+            ImpuestoSegundaCategoriaDAO impuestoDAO = new ImpuestoSegundaCategoriaDAO();
+            List<ImpuestoSegundaCategoria> rangos = impuestoDAO.findAll();
+            ValoresDAO vDAO = new ValoresDAO(); //iniciamos variables
+            List<Valores> valores = vDAO.findAll(); //iniciamos variables
+            Double ImpuestoaPagar = 0.0;
+            Double Impuestosinrebaja = 0.0;
+            Double Rebaja = 0.0;
+            for (int i = 0; i < rangos.size(); i++) {
+                if ((((rangos.get(i).getDesde() * valores.get(2).getMonto()) < basetributable)) && ((rangos.get(i).getHasta() * valores.get(2).getMonto()) >= basetributable)) {
+                    System.out.println("Factor: " + rangos.get(i).getFactor());
+                    System.out.println("RebajaUTM: " + rangos.get(i).getRebaja());
+                    Impuestosinrebaja = basetributable * rangos.get(i).getFactor();
+                    Rebaja = rangos.get(i).getRebaja() * valores.get(2).getMonto();
+                    ImpuestoaPagar = Impuestosinrebaja - Rebaja;
+                }
+            }
+            System.out.println("Valor UTM: " + valores.get(2).getMonto());
+            System.out.println("Impuesto sin rebaja: " + Impuestosinrebaja);
+            System.out.println("Rebaja: " + Rebaja);
+            System.out.println("ImpuestoaPagar: " + ImpuestoaPagar);
+            return ImpuestoaPagar;
+        }
+        //arreglo del mes de los anticipos y abonos
+        //para calcular la fecha final segun el numero de cuotas
+        public Date calcularFechaFinal(Date fecha) {
+            SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(fecha);
+            cal.add(Calendar.MONTH, 1);
+            String newdate = dateformat.format(cal.getTime());
+            System.out.println(newdate);
+            return (getDate(newdate));
+        }
+        //para transformar el string en fecha
+        public Date getDate(String date) {
+            DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            try {
+                return df.parse(date);
+            } catch (ParseException ex) {
+            }
+            return null;
+        }
+
+    public String getAnioCalcular() {
+        return AnioCalcular;
+    }
+
+
+    public void setAnioCalcular(String anioCalcular) {
+        AnioCalcular = anioCalcular;
+    }
+
+
+    public String getMesCalcular() {
+        return MesCalcular;
+    }
+
+
+    public void setMesCalcular(String mesCalcular) {
+        MesCalcular = mesCalcular;
+    }
+
+
 }

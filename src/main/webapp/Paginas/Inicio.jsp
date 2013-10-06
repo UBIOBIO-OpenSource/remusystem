@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <s:textfield cssClass="bg" name="rut" id="rut" label="Rut" title="Ingrese su rut" onchange="javascript: Rut(this.value);"/>
 	<s:password cssClass="bg" name="password" id="password" label="Password" title="Ingrese su password" />
 	<sj:submit cssClass="button" value="Entrar" title="Pulse el botón para ingresar al sistema"/>
-	<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small"/>
+	<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small;width: 340;margin: 8px;text-align: center"/>
 	</s:form>
 	</article>
 	</div>
@@ -79,22 +79,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</section>
 <!-- content -->
 <!-- content -->
-<!-- footer -->	
-	<footer>
-	Software desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
-	como requisito parcial para la obtención del título de Ingeniero Civil Informático por la Universidad del Bío-Bío<br>
-	Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
-	 
-	
-	</footer>
-		
-	
+
+</div>
+<!-- footer -->
+    <footer>
+        <div align="center">
+        <a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
+            <p><br>
+            REMUSYSTEM , es desarrollado y mantenido por alumnos, ex-alumnos y profesores de la carrera de Ingeniería Civil Informática de la <br>
+            <a href="http://www.ubiobio.cl/face/">Facultad de Ciencias Empresariales de la Universidad del Bío-Bío.</a>
+            La versión inicial fue desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
+    	    como requisito parcial para la obtención del título de Ingeniero Civil Informático.
+    	    <br><br>
+    	    <a href="www.remusystem.org">www.remusystem.org</a><br>
+    	    Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
+
+        </div>
+    </footer>
 <!-- / footer -->
-</div>
-<div align="center">
-<a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
-<a href="#" id="Footer_logo"> </a>
-</div>
+
 
 
 </body>

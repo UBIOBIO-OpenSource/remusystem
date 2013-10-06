@@ -84,7 +84,7 @@ public class LibroReporteExcel extends ActionSupport implements SessionAware{
 		    }
 		    catch (IOException ex) {
 		    	ex.printStackTrace();
-		    	addActionError("Algo paso en el camino :(");
+		    	addActionError("Error interno en LibroReporteExcel Linea 87");
 		    	// conexion.close();
 		    	return ERROR;
 		    }

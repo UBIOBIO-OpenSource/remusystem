@@ -61,6 +61,10 @@ public class VerLiquidacion extends ActionSupport implements SessionAware{
 		LiquidacionDeSueldo li = liqDAO.findBYIDrelAnioMes(rel.getId(), numAnio, Mes);
 		System.out.println(li);
 		if(li!=null){
+            session.remove("VerMes");
+            session.remove("VerAnio");
+            session.put("VerMes", Mes);
+            session.put("VerAnio",Anio);
 			DetalleLiquidacionDAO dDAO = new DetalleLiquidacionDAO();
 			List<DetalleLiquidacion> detalles = dDAO.findByIdLiquidacion(li.getId());
 			System.out.println(detalles);
@@ -144,13 +148,13 @@ public class VerLiquidacion extends ActionSupport implements SessionAware{
 			}
 			Total_desc_prev = cotizarAFP + cotizarSalud + SegurodeCesantia;
 			Total_desc_prev = Redondear(Total_desc_prev, 2);
-			Total_otros_haberes = AsignacionaPagar + AbonosNoImponiblesNoTributables;
+			Total_otros_haberes = AsignacionaPagar + AbonosNoImponiblesNoTributables+AbonosNoImponiblesTributables;
 			
 			
 			return SUCCESS;
 			
 		}else{
-			addActionError("No se han encontrado liquidacion de sueldo para el mes y a�o seleccionados");
+			addActionError("No se han encontrado liquidacion de sueldo para el mes y año seleccionados");
 			return ERROR;
 		}
 		}else{

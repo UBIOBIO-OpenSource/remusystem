@@ -81,7 +81,7 @@ header {}
 .list1 li {line-height:23px}
 .list1 li a {padding-left:20px;background:url(../images/marker_2.gif) 5px 5px no-repeat}
 /* footer */
-footer {padding:25px 0 28px 0;width:100%;overflow:hidden;text-align:center;line-height:18px;vertical-align:baseline;}
+footer {padding:25px 0 28px 0;width:100%;overflow:hidden;text-align:center;line-height:18px;vertical-align:baseline;font: 80% sans-serif}
 footer a {}
 footer a:hover {}
 
@@ -132,7 +132,7 @@ footer a:hover {}
 
 #ficha_trabajador {}
 #ficha_trabajador .texto {font-weight:bold;color:#318EA2;padding:2px 0 0px 0;font-size:x-small;}
-#ficha_trabajador .cifra {font-weight:bold;color:black;padding:0px 25px 7px 4px;padding-left:16px}
+#ficha_trabajador .cifra {font-weight:bold;color:black;padding:0px 25px 7px 4px;padding-left:16px;padding-right:16px;align:right}
 
 #CalcularSueldo {font-weight:bold;color:#323232;line-height:28px;align:center}
 #CalcularSueldo .wrapper {padding-bottom:6px;align:center}
@@ -190,8 +190,8 @@ footer a:hover {}
 #ModificaTrabajador textarea {overflow:auto;width:408px;height:181px;background:none;padding:5px 10px;color:#323232;font:13px Arial,Helvetica,sans-serif;margin:0}
 #ModificaTrabajador .button:hover {background:#696969}
 
-#button_solo {margin-left:8px;margin-top:9px;float:right;margin-right:2px;font-size:20px;font-weight:700;color:#fff;line-height:35px;width:190px;text-align:center;background:url(../images/button_form.gif) top repeat-x #308da2;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;behavior:url(js/PIE.htc);position:relative;text-decoration:none}
-#button_solo_2 {margin-left:8px;margin-top:9px;float:right;margin-right:2px;font-size:16px;font-weight:500;color:#fff;line-height:35px;width:250px;text-align:center;background:url(../images/button_form.gif) top repeat-x #308da2;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;behavior:url(js/PIE.htc);position:relative;text-decoration:none}
+#button_solo {margin-left:8px;margin-top:20px;margin-bottom:20px;float:right;margin-right:2px;font-size:20px;font-weight:700;color:#fff;line-height:35px;width:190px;text-align:center;background:url(../images/button_form.gif) top repeat-x #308da2;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;behavior:url(js/PIE.htc);position:relative;text-decoration:none}
+#button_solo_2 {margin-left:8px;margin-top:9px;margin-bottom:5px;float:right;margin-right:2px;font-size:16px;font-weight:500;color:#fff;line-height:35px;width:250px;text-align:center;background:url(../images/button_form.gif) top repeat-x #308da2;border-radius:10px;-moz-border-radius:10px;-webkit-border-radius:10px;behavior:url(js/PIE.htc);position:relative;text-decoration:none}
 
 #Datossesion {float:right;padding:4px 0 0 0}
 #Datossesion .submit {float:right;height:36px;width:40px;background:none}

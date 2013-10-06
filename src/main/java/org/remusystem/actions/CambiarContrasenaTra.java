@@ -29,7 +29,7 @@ public class CambiarContrasenaTra extends ActionSupport implements SessionAware 
 			
 			return SUCCESS;	
 		}else {
-			addActionError("La contrase�a actual no coincide con la registrada por favor revise");
+			addActionError("La contraseña actual no coincide con la registrada por favor revise");
 			return ERROR;
 		}
 		

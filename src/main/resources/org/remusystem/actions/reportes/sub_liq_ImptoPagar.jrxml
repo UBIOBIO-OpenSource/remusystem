@@ -27,9 +27,9 @@ WHERE
 	<field name="detalle_liquidacion_monto" class="java.math.BigDecimal"/>
 	<summary>
 		<band height="20">
-			<textField pattern="#,##0">
+			<textField pattern="$ #,##0">
 				<reportElement x="0" y="0" width="120" height="20"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{detalle_liquidacion_monto}]]></textFieldExpression>
 			</textField>
 		</band>

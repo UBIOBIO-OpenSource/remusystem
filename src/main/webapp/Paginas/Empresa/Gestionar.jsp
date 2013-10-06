@@ -130,8 +130,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="box pad_bot1">
 				<div class="pad marg_top">
 					<article class="">
-					<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small" />
-					<s:actionmessage cssClass="ui-state-highlight" cssStyle="font-size-small"/>
+					<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small;margin: 25px;text-align: center;padding: 10px" />
+					<s:actionmessage cssClass="ui-state-highlight"  cssStyle="font-size-small;margin: 25px;text-align: center"/>
     				<% Trabajador trabajador = (Trabajador) session.getAttribute("trabajador"); %>
     				<s:form id="buscaTrabajador" name="buscaTrabajador" action="BuscarTrabajadorEMP" onsubmit="return validaForm(this)">
     				<s:textfield label="Rut" cssClass="bg" id="rut_tra" name="rut_tra" onchange="javascript: Rut(this.value);" value="%{#session.trabajador.getRut()}" />
@@ -254,7 +254,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       <sj:div id="tone">
       <sjg:grid
       		id="gridAnticipos"
-	        caption="Anticipos u Otros Descuentos"
+	        caption="Otros Descuentos y anticipos"
 	        dataType="json"
 	        href="%{remoteurlAnticipos}"
 	        pager="true"
@@ -274,7 +274,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        
 	        onSelectRowTopics="rowselect"
 	        navigatorAdd="true"
-	        navigatorSearch="false" 
+	        navigatorSearch="false"
 		    navigatorRefresh="true"
 		    navigatorDelete="true"
 		    navigatorEdit="true" 
@@ -375,7 +375,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        
 	        onSelectRowTopics="rowselect"
 	        navigatorAdd="true"
-	        navigatorSearch="false" 
+	        navigatorSearch="false"
 		    navigatorRefresh="true"
 		    navigatorDelete="true"
 		    navigatorEdit="true" 
@@ -482,7 +482,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!--			</div>-->
 <!--		</div>-->
 <!--	</section>-->
-    
+
+            <div class="wrapper">
+    			<div class="pad">
+    				<div class="wrapper">
+    					<article class=""><h3>Ingrese Datos para Recalcular Sueldo para el período vigente</h3></article>
+    				</div>
+    			</div>
+    			<div class="box pad_bot1">
+    				<div class="pad marg_top">
+    					<article class="">
+                        <s:form id="reCalcularSueldo" name="reCalcularSueldo" action="recalcularsueldoEMP" title="Ingresar Datos Para Recalcular Sueldo del Mes" onsubmit="return validaRecalcularLiq(this);">
+                            <s:textfield cssClass="bg" id="Dias" name="Dias" label="Dias Trabajados" value="30" onchange="javascript: Sue(this.value);"/>
+                            <s:checkbox id="Horas" name="Horas" label="Marque si indica solo Horas Trabajadas"/>
+                            <s:textfield cssClass="bg" id="HorasExtras" name="HorasExtras" label="Horas Extras" value="0" onchange="javascript: Sue(this.value);"/>
+                            <s:submit cssClass="button" value="Recalcular" />
+                        </s:form>
+    	            </div>
+    	        </div>
+    	    </div>
      
 		<div class="wrapper">
 			<div class="pad">
@@ -510,23 +528,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </section>
 <!-- content -->
-<!-- footer -->	
-	<footer>
-	Software desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
-	como requisito parcial para la obtención del título de Ingeniero Civil Informático por la Universidad del Bíobio<br>
-	Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
-	 
-	
-	</footer>
-		
-	
-<!-- / footer -->
-</div>
-<div align="center">
-<a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
-<a href="#" id="Footer_logo"> </a>
-</div>
 
+</div>
+<!-- footer -->
+    <footer>
+        <div align="center">
+        <a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
+            <p><br>
+            REMUSYSTEM , es desarrollado y mantenido por alumnos, ex-alumnos y profesores de la carrera de Ingeniería Civil Informática de la <br>
+            <a href="http://www.ubiobio.cl/face/">Facultad de Ciencias Empresariales de la Universidad del Bío-Bío.</a>
+            La versión inicial fue desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
+    	    como requisito parcial para la obtención del título de Ingeniero Civil Informático.
+    	    <br><br>
+    	    <a href="www.remusystem.org">www.remusystem.org</a><br>
+    	    Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
+
+        </div>
+    </footer>
+<!-- / footer -->
 
 </body>
 </html>

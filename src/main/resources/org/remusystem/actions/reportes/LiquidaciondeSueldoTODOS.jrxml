@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LiquidaciondeSueldo" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
-	<property name="ireport.zoom" value="2.0"/>
-	<property name="ireport.x" value="55"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="217"/>
 	<style name="table" lineSpacing="Single">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -98,6 +98,12 @@ WHERE
 	</pageHeader>
 	<detail>
 		<band height="598">
+			<rectangle radius="5">
+				<reportElement mode="Transparent" x="297" y="269" width="272" height="77"/>
+			</rectangle>
+			<rectangle radius="5">
+				<reportElement mode="Transparent" x="16" y="269" width="271" height="102"/>
+			</rectangle>
 			<rectangle radius="10">
 				<reportElement x="15" y="5" width="555" height="118"/>
 			</rectangle>
@@ -202,7 +208,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_BaseImponible.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="165" y="275" width="120" height="20"/>
+				<reportElement x="157" y="326" width="120" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -216,7 +222,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_AboNoImpTrib.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="165" y="294" width="120" height="20"/>
+				<reportElement x="440" y="292" width="120" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -230,7 +236,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_BaseTributable.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="165" y="313" width="120" height="20"/>
+				<reportElement x="440" y="312" width="120" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -244,21 +250,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_ImptoPagar.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="165" y="334" width="120" height="20"/>
-				<subreportParameter name="Anio">
-					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="Mes">
-					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="id_relacion">
-					<subreportParameterExpression><![CDATA[$F{relacion_laboral_Id}.toString()]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_SuelDspsImpto.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="301" y="235" width="262" height="20"/>
+				<reportElement x="299" y="151" width="262" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -272,7 +264,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_AFP.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="301" y="254" width="262" height="20"/>
+				<reportElement x="299" y="170" width="262" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -286,7 +278,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_Salud.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="443" y="273" width="120" height="20"/>
+				<reportElement x="441" y="189" width="120" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -300,7 +292,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_SeguroCesantia.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="443" y="293" width="120" height="20"/>
+				<reportElement x="441" y="209" width="120" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -314,7 +306,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_TotalDescPrev.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="441" y="152" width="120" height="20"/>
+				<reportElement x="157" y="289" width="120" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -328,7 +320,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_AsigFam.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="441" y="171" width="120" height="20"/>
+				<reportElement x="157" y="308" width="120" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -342,7 +334,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_AboNoImpNoTrib.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="441" y="190" width="120" height="20"/>
+				<reportElement x="157" y="351" width="120" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -356,7 +348,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_TotalOtrosHaberes.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="442" y="324" width="120" height="20"/>
+				<reportElement x="440" y="240" width="120" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -370,7 +362,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_Anticipos.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="308" y="373" width="252" height="20"/>
+				<reportElement x="308" y="385" width="252" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -384,7 +376,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_SueldoLiquido.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="56" y="413" width="226" height="55"/>
+				<reportElement x="56" y="425" width="226" height="55"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -397,56 +389,43 @@ WHERE
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_Son.jasper"]]></subreportExpression>
 			</subreport>
-			<rectangle radius="5">
-				<reportElement mode="Transparent" x="299" y="132" width="271" height="77"/>
-			</rectangle>
 			<rectangle radius="10">
-				<reportElement mode="Transparent" x="298" y="410" width="272" height="60"/>
+				<reportElement mode="Transparent" x="298" y="422" width="272" height="60"/>
 			</rectangle>
 			<rectangle radius="5">
 				<reportElement mode="Transparent" x="16" y="131" width="272" height="134"/>
 			</rectangle>
 			<rectangle radius="5">
-				<reportElement mode="Transparent" x="299" y="319" width="272" height="35"/>
-			</rectangle>
-			<rectangle radius="5">
-				<reportElement mode="Transparent" x="16" y="277" width="272" height="77"/>
+				<reportElement mode="Transparent" x="297" y="235" width="272" height="30"/>
 			</rectangle>
 			<staticText>
-				<reportElement x="22" y="334" width="153" height="20"/>
-				<textElement verticalAlignment="Middle" lineSpacing="Single">
-					<font size="9" isBold="true"/>
-				</textElement>
-				<text><![CDATA[SUELDO DESPUES DE IMPTO.]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="22" y="313" width="153" height="20"/>
+				<reportElement x="301" y="312" width="139" height="20"/>
 				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="10"/>
 				</textElement>
 				<text><![CDATA[ - Impuesto a Pagar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="216" width="272" height="20"/>
+				<reportElement x="298" y="132" width="272" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[Descuentos Previsionales]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="332" y="413" width="206" height="55"/>
+				<reportElement x="332" y="425" width="206" height="55"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
 				<text><![CDATA[Recibí conforme el alcance líquido de la presente liquidación, no teniendo cargo o cobro alguno que hacer por otro concepto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="299" y="190" width="154" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
-					<font size="12" isBold="true"/>
+				<reportElement x="20" y="351" width="142" height="20"/>
+				<textElement verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10" isBold="true"/>
 				</textElement>
-				<text><![CDATA[TOTAL Otros Haberes]]></text>
+				<text><![CDATA[Tot. Haberes no Imp.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="273" width="120" height="20"/>
+				<reportElement x="298" y="189" width="120" height="20"/>
 				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="10"/>
 				</textElement>
@@ -460,25 +439,25 @@ WHERE
 				<text><![CDATA[BASE IMPONIBLE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="171" width="153" height="20"/>
+				<reportElement x="16" y="309" width="141" height="20"/>
 				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="10"/>
 				</textElement>
-				<text><![CDATA[ + Abo. No Imp. No Tributables]]></text>
+				<text><![CDATA[ + Abo. No Imp. No Trib.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="27" y="410" width="28" height="20"/>
+				<reportElement x="27" y="422" width="28" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font isBold="true"/>
 				</textElement>
 				<text><![CDATA[Son:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="303" y="324" width="153" height="20"/>
+				<reportElement x="301" y="240" width="153" height="20"/>
 				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="10"/>
 				</textElement>
-				<text><![CDATA[ - Anticipos u Otros Des.]]></text>
+				<text><![CDATA[ - Otros Descuentos]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="22" y="169" width="120" height="20"/>
@@ -488,11 +467,11 @@ WHERE
 				<text><![CDATA[ + Horas Extras]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="299" y="133" width="271" height="20"/>
+				<reportElement x="15" y="270" width="271" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Otros Haberes]]></text>
+				<text><![CDATA[Haberes no imponibles]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="22" y="226" width="154" height="20"/>
@@ -502,11 +481,11 @@ WHERE
 				<text><![CDATA[ + Abo. Imponibles No Tributables]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="22" y="275" width="153" height="20"/>
+				<reportElement x="15" y="329" width="142" height="20"/>
 				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="10"/>
 				</textElement>
-				<text><![CDATA[ + Abo. No Imponibles Tributables]]></text>
+				<text><![CDATA[ + Abo. No Imp. y Trib.]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="22" y="188" width="120" height="20"/>
@@ -516,14 +495,14 @@ WHERE
 				<text><![CDATA[ + Gratificación 25%]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="293" width="154" height="20"/>
+				<reportElement x="298" y="209" width="154" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<text><![CDATA[TOTAL DSCT. PREV]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="300" y="152" width="153" height="20"/>
+				<reportElement x="16" y="289" width="153" height="20"/>
 				<textElement verticalAlignment="Middle" lineSpacing="Single">
 					<font size="10"/>
 				</textElement>
@@ -551,16 +530,16 @@ WHERE
 				<text><![CDATA[Haberes Imponibles]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="24" y="373" width="258" height="20"/>
+				<reportElement x="24" y="385" width="258" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[SUELDO LÍQUIDO A PAGAR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="22" y="294" width="153" height="20"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
-					<font size="10" isBold="true"/>
+				<reportElement x="301" y="292" width="139" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="10" isBold="false"/>
 				</textElement>
 				<text><![CDATA[BASE TRIBUTABLE]]></text>
 			</staticText>
@@ -568,13 +547,13 @@ WHERE
 				<reportElement x="70" y="527" width="160" height="1"/>
 			</line>
 			<line>
-				<reportElement x="16" y="333" width="272" height="1"/>
+				<reportElement x="297" y="291" width="272" height="1"/>
 			</line>
 			<line>
 				<reportElement x="16" y="244" width="272" height="1"/>
 			</line>
 			<line>
-				<reportElement x="300" y="292" width="272" height="1"/>
+				<reportElement x="298" y="208" width="272" height="1"/>
 			</line>
 			<line>
 				<reportElement x="356" y="527" width="160" height="1"/>
@@ -583,13 +562,13 @@ WHERE
 				<reportElement x="16" y="150" width="272" height="1"/>
 			</line>
 			<line>
-				<reportElement x="299" y="190" width="271" height="1"/>
+				<reportElement x="17" y="349" width="271" height="1"/>
 			</line>
 			<line>
-				<reportElement x="299" y="153" width="271" height="1"/>
+				<reportElement x="15" y="290" width="271" height="1"/>
 			</line>
 			<line>
-				<reportElement x="300" y="235" width="272" height="1"/>
+				<reportElement x="298" y="151" width="272" height="1"/>
 			</line>
 			<staticText>
 				<reportElement x="22" y="10" width="100" height="20"/>
@@ -609,14 +588,21 @@ WHERE
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{trabajador_nombre}+' '+$F{trabajador_apellido_paterno}+"\nRUT: "+$F{trabajador_rut}]]></textFieldExpression>
 			</textField>
 			<rectangle radius="5">
-				<reportElement mode="Transparent" x="16" y="366" width="555" height="34"/>
+				<reportElement mode="Transparent" x="16" y="380" width="555" height="34"/>
 			</rectangle>
 			<rectangle radius="10">
-				<reportElement mode="Transparent" x="15" y="410" width="274" height="60"/>
+				<reportElement mode="Transparent" x="15" y="422" width="274" height="60"/>
 			</rectangle>
 			<rectangle radius="5">
-				<reportElement mode="Transparent" x="300" y="216" width="272" height="96"/>
+				<reportElement mode="Transparent" x="298" y="132" width="272" height="96"/>
 			</rectangle>
+			<staticText>
+				<reportElement x="299" y="270" width="271" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Impuesto Único]]></text>
+			</staticText>
 		</band>
 	</detail>
 </jasperReport>

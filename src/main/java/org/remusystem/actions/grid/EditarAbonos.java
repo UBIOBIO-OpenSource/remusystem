@@ -83,17 +83,18 @@ public class EditarAbonos extends ActionSupport implements SessionAware{
 	//para transformar el string en fecha
 	 public Date getDate(String date)
 	     {
-	         DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
+	         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	         try {
-	             return df.parse(date);
+	             return sdf.parse(date.trim());
 	         } catch (ParseException ex) {
+                 System.out.println(ex);
 	         }
 	         return null;
 	     } 
 	 
 	//para calcular la fecha final segun el numero de cuotas
 		public Date calcularFechaFinal(String date, String cuotas){
-			SimpleDateFormat dateformat = new SimpleDateFormat("dd-mm-yyyy");
+			SimpleDateFormat dateformat = new SimpleDateFormat("dd-MM-yyyy");
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(getDate(fechaInicio));
 			cal.add(Calendar.MONTH, Integer.parseInt(cuotas)-1);    //Adding 1 month to current date

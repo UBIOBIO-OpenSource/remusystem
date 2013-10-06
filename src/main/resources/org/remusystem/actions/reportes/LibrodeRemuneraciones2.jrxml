@@ -2,8 +2,8 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LibrodeRemuneraciones" pageWidth="1535" pageHeight="900" orientation="Landscape" columnWidth="1535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
 	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="true"/>
 	<property name="ireport.zoom" value="1.6105100000000077"/>
-	<property name="ireport.x" value="762"/>
-	<property name="ireport.y" value="143"/>
+	<property name="ireport.x" value="763"/>
+	<property name="ireport.y" value="117"/>
 	<parameter name="id_empresa" class="java.lang.String">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
@@ -169,7 +169,7 @@ WHERE
 				<text><![CDATA[Sueldo Base Imponible]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="540" y="0" width="65" height="40"/>
+				<reportElement x="695" y="0" width="65" height="40"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<bottomPen lineWidth="2.0"/>
@@ -178,7 +178,7 @@ WHERE
 				<text><![CDATA[AFP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="605" y="0" width="55" height="40"/>
+				<reportElement x="760" y="0" width="55" height="40"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<bottomPen lineWidth="2.0"/>
@@ -187,7 +187,7 @@ WHERE
 				<text><![CDATA[Factor AFP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="660" y="0" width="60" height="40"/>
+				<reportElement x="815" y="0" width="60" height="40"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<bottomPen lineWidth="2.0"/>
@@ -196,7 +196,7 @@ WHERE
 				<text><![CDATA[Cotizacion AFP]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="720" y="0" width="55" height="40"/>
+				<reportElement x="875" y="0" width="55" height="40"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<bottomPen lineWidth="2.0"/>
@@ -205,7 +205,7 @@ WHERE
 				<text><![CDATA[Seguro Cesantia]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="775" y="0" width="90" height="40"/>
+				<reportElement x="930" y="0" width="90" height="40"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<bottomPen lineWidth="2.0"/>
@@ -214,7 +214,7 @@ WHERE
 				<text><![CDATA[Salud]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="865" y="0" width="50" height="40"/>
+				<reportElement x="1020" y="0" width="50" height="40"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<bottomPen lineWidth="2.0"/>
@@ -223,7 +223,7 @@ WHERE
 				<text><![CDATA[Valor del Plan]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="915" y="0" width="100" height="40"/>
+				<reportElement x="1070" y="0" width="100" height="40"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<bottomPen lineWidth="2.0"/>
@@ -232,16 +232,7 @@ WHERE
 				<text><![CDATA[Monto Salud]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1015" y="0" width="85" height="40"/>
-				<box>
-					<topPen lineWidth="2.0"/>
-					<bottomPen lineWidth="2.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
-				<text><![CDATA[Sum. Abonos Imponibles No Tributables]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="1100" y="0" width="95" height="40"/>
+				<reportElement x="1170" y="0" width="95" height="40"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<bottomPen lineWidth="2.0"/>
@@ -250,22 +241,13 @@ WHERE
 				<text><![CDATA[Base Tributable]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="1195" y="0" width="60" height="40"/>
+				<reportElement x="1265" y="0" width="60" height="40"/>
 				<box>
 					<topPen lineWidth="2.0"/>
 					<bottomPen lineWidth="2.0"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
 				<text><![CDATA[Impto. Único]]></text>
-			</staticText>
-			<staticText>
-				<reportElement x="1255" y="0" width="70" height="40"/>
-				<box>
-					<topPen lineWidth="2.0"/>
-					<bottomPen lineWidth="2.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
-				<text><![CDATA[Abonos No Imp. No Tributables]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="1325" y="0" width="90" height="40"/>
@@ -284,6 +266,24 @@ WHERE
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
 				<text><![CDATA[Sueldo Liquido a Pagar]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="540" y="0" width="85" height="40"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
+				<text><![CDATA[Sum. Abonos Imponibles No Tributables]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="625" y="0" width="70" height="40"/>
+				<box>
+					<topPen lineWidth="2.0"/>
+					<bottomPen lineWidth="2.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
+				<text><![CDATA[Abonos No Imp. No Tributables]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -331,17 +331,17 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_libro_BaseImponible.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="540" y="0" width="65" height="20"/>
+				<reportElement x="695" y="0" width="65" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{institucion_prevision_nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="605" y="0" width="55" height="20"/>
+				<reportElement x="760" y="0" width="55" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{institucion_prevision_porcentaje_descuento}.toString()]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="660" y="0" width="60" height="20"/>
+				<reportElement x="815" y="0" width="60" height="20"/>
 				<subreportParameter name="Mes">
 					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -355,7 +355,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_cotizacionAFP.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="720" y="0" width="55" height="20"/>
+				<reportElement x="875" y="0" width="55" height="20"/>
 				<subreportParameter name="Mes">
 					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -369,17 +369,17 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_seguroCesantia.jasper"]]></subreportExpression>
 			</subreport>
 			<textField>
-				<reportElement x="775" y="0" width="90" height="20"/>
+				<reportElement x="930" y="0" width="90" height="20"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle" lineSpacing="Single"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{institucion_salud_nombre}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="865" y="0" width="50" height="20"/>
+				<reportElement x="1020" y="0" width="50" height="20"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle" lineSpacing="Single"/>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{relacion_laboral_valor_plan_isapre}.toString()]]></textFieldExpression>
 			</textField>
 			<subreport>
-				<reportElement x="915" y="0" width="100" height="20"/>
+				<reportElement x="1070" y="0" width="100" height="20"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -393,21 +393,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_salud.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="1015" y="0" width="85" height="20"/>
-				<subreportParameter name="Mes">
-					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="Anio">
-					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="id_relacion">
-					<subreportParameterExpression><![CDATA[$F{relacion_laboral_Id}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_SumAbnImpNoTributables.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="1100" y="0" width="95" height="20"/>
+				<reportElement x="1170" y="0" width="95" height="20"/>
 				<subreportParameter name="Mes">
 					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -421,7 +407,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_bTributable.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="1195" y="0" width="60" height="20"/>
+				<reportElement x="1265" y="0" width="60" height="20"/>
 				<subreportParameter name="Mes">
 					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -433,20 +419,6 @@ WHERE
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_imptoUnico.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="1255" y="0" width="70" height="20"/>
-				<subreportParameter name="Mes">
-					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="Anio">
-					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="id_relacion">
-					<subreportParameterExpression><![CDATA[$F{relacion_laboral_Id}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_abNoImpNoTri.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="1325" y="0" width="90" height="20"/>
@@ -476,6 +448,34 @@ WHERE
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_liq_suelLiq.jasper"]]></subreportExpression>
 			</subreport>
+			<subreport>
+				<reportElement x="540" y="0" width="85" height="20"/>
+				<subreportParameter name="Mes">
+					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Anio">
+					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_relacion">
+					<subreportParameterExpression><![CDATA[$F{relacion_laboral_Id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_SumAbnImpNoTributables.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="625" y="0" width="70" height="20"/>
+				<subreportParameter name="Mes">
+					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Anio">
+					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_relacion">
+					<subreportParameterExpression><![CDATA[$F{relacion_laboral_Id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_abNoImpNoTri.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</detail>
 	<summary>
@@ -502,7 +502,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_BaseImpTOTAL.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="660" y="0" width="60" height="25"/>
+				<reportElement x="815" y="0" width="60" height="25"/>
 				<subreportParameter name="Mes">
 					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -516,7 +516,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_afpTOTAL.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="720" y="0" width="55" height="25"/>
+				<reportElement x="875" y="0" width="55" height="25"/>
 				<subreportParameter name="Mes">
 					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -530,7 +530,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_cesantiaTOTAL.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="915" y="0" width="100" height="25"/>
+				<reportElement x="1070" y="0" width="100" height="25"/>
 				<subreportParameter name="Mes">
 					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -544,21 +544,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_saludTOTAL.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="1015" y="0" width="85" height="25"/>
-				<subreportParameter name="Mes">
-					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="Anio">
-					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="id_empresa">
-					<subreportParameterExpression><![CDATA[$F{empresa_Id}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_aniTOTAL.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="1100" y="0" width="95" height="25"/>
+				<reportElement x="1170" y="0" width="95" height="25"/>
 				<subreportParameter name="Anio">
 					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -572,7 +558,7 @@ WHERE
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_BaseTributableTOTAL.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
-				<reportElement x="1195" y="0" width="60" height="25"/>
+				<reportElement x="1265" y="0" width="60" height="25"/>
 				<subreportParameter name="Mes">
 					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
 				</subreportParameter>
@@ -584,20 +570,6 @@ WHERE
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_imptoUnicoTOTAL.jasper"]]></subreportExpression>
-			</subreport>
-			<subreport>
-				<reportElement x="1255" y="0" width="70" height="25"/>
-				<subreportParameter name="Mes">
-					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="Anio">
-					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
-				</subreportParameter>
-				<subreportParameter name="id_empresa">
-					<subreportParameterExpression><![CDATA[$F{empresa_Id}]]></subreportParameterExpression>
-				</subreportParameter>
-				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_anintTOTAL.jasper"]]></subreportExpression>
 			</subreport>
 			<subreport>
 				<reportElement x="1415" y="0" width="120" height="25"/>
@@ -634,6 +606,34 @@ WHERE
 				</textElement>
 				<text><![CDATA[$]]></text>
 			</staticText>
+			<subreport>
+				<reportElement x="540" y="0" width="85" height="25"/>
+				<subreportParameter name="Mes">
+					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Anio">
+					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_empresa">
+					<subreportParameterExpression><![CDATA[$F{empresa_Id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_aniTOTAL.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="625" y="0" width="70" height="25"/>
+				<subreportParameter name="Mes">
+					<subreportParameterExpression><![CDATA[$P{Mes}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Anio">
+					<subreportParameterExpression><![CDATA[$P{Anio}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="id_empresa">
+					<subreportParameterExpression><![CDATA[$F{empresa_Id}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "sub_lib_anintTOTAL.jasper"]]></subreportExpression>
+			</subreport>
 		</band>
 	</summary>
 </jasperReport>

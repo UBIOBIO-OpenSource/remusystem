@@ -113,7 +113,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- / header -->
 <!-- content -->
 	<section id="content">
-	
+
 		<div class="wrapper">
 			<div class="pad">
 				<div class="wrapper">
@@ -123,8 +123,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="box pad_bot1">
 				<div class="pad marg_top">
 					<article class="">
-					<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small"/>
-					<s:actionmessage cssClass="ui-state-highlight" cssStyle="font-size-small"/>
+					<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small;margin: 25px;text-align: center;padding: 10px"/>
+					<s:actionmessage cssClass="ui-state-highlight"  cssStyle="font-size-small;margin: 25px;text-align: center"/>
     				<s:form id="verliquidacion" name="verliquidacion" action="MostrarLiquidacionTrabajador">
     				<s:select cssClass="bg" label="Mes" id="Mes" name="Mes" headerKey="-1" headerValue="Seleccione el Mes" list="#{'Enero':'Enero','Febrero':'Febrero','Marzo':'Marzo','Abril':'Abril','Mayo':'Mayo','Junio':'Junio','Julio':'Julio','Agosto':'Agosto','Septiembre':'Septiembre','Octubre':'Octubre','Noviembre':'Noviembre','Diciembre':'Diciembre'}"/>
     				<s:select cssClass="bg" label="Anio" id="Anio" name="Anio" headerKey="-1" headerValue="Seleccione el Año" list="#{'2012':'2012','2013':'2013','2014':'2014','2015':'2015'}"/>
@@ -133,9 +133,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 		</div>
-	
 
-		    
+
+
     <div class="wrapper">
 			<div class="pad">
 				<div class="wrapper">
@@ -145,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="box pad_bot1">
 				<div class="pad marg_top">
 					<article class="">
-					
+
 <s:url id="remoteurlAnticipos" action="buscarAnticipos2"/>
 <s:url id="remoteurlAbonos" action="buscarAbonos2"/>
     <sj:tabbedpanel id="localtabs" cssStyle="font-size-small">
@@ -170,78 +170,78 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			editinline="false"
 	    	viewrecords="true"
 	    	sortable="true"
-	        
+
 	        onSelectRowTopics="rowselect"
 	        navigatorAdd="false"
-	        navigatorSearch="false" 
+	        navigatorSearch="false"
 		    navigatorRefresh="true"
 		    navigatorDelete="false"
-		    navigatorEdit="false" 
-		    navigatorView="true" 
+		    navigatorEdit="false"
+		    navigatorView="true"
 		    navigatorViewOptions="{width:400}"
-		    navigatorEditOptions="{width:400,reloadAfterSubmit:true,closeAfterEdit:true}" 
-		    
+		    navigatorEditOptions="{width:400,reloadAfterSubmit:true,closeAfterEdit:true}"
+
 	    	>
       			<sjg:gridColumn name="id"
-      							index="id" 
-      							title="id" 
-      							key="true" 
-      							formatter="integer" 
-      							sortable="false" 
-      							editable="false" 
+      							index="id"
+      							title="id"
+      							key="true"
+      							formatter="integer"
+      							sortable="false"
+      							editable="false"
       							hidden="true"/>
-      							
-      			<sjg:gridColumn name="nombre" index="nombre" title="Descripcion"  
-		    		sortable="true" 
+
+      			<sjg:gridColumn name="nombre" index="nombre" title="Descripcion"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
-		    		editoptions="{size: 30}"   
-		    		
-		    		
+		    		editable="true"
+		    		edittype="text"
+		    		editoptions="{size: 30}"
+
+
 		    		/>
-		    			
-		    	<sjg:gridColumn name="monto" index="monto" title="Monto Mensual"  
-		    		sortable="true" 
+
+		    	<sjg:gridColumn name="monto" index="monto" title="Monto Mensual"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
-		    		editoptions="{size: 30}" 
-		    		
+		    		editable="true"
+		    		edittype="text"
+		    		editoptions="{size: 30}"
+
 		    		/>
-		    	
-		    		
-		    	<sjg:gridColumn name="numerCuotas" index="numerCuotas" title="Numero de Cuotas"  
-		    		sortable="true" 
+
+
+		    	<sjg:gridColumn name="numerCuotas" index="numerCuotas" title="Numero de Cuotas"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
-		    		editoptions="{size: 30}" 
-		    		
+		    		editable="true"
+		    		edittype="text"
+		    		editoptions="{size: 30}"
+
 		    		/>
-		    		
-		    	
-		    	<sjg:gridColumn name="fechaInicio" index="fechaInicio" title="Fecha Inicio"  
-		    		sortable="true" 
+
+
+		    	<sjg:gridColumn name="fechaInicio" index="fechaInicio" title="Fecha Inicio"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
+		    		editable="true"
+		    		edittype="text"
 		    		formatter="date"
-		    		
-		    			    		
+
+
 		    		/>
-		    		
-		    	<sjg:gridColumn name="fechaFinal" index="fechaFinal" title="Fecha Final"  
-		    		sortable="true" 
+
+		    	<sjg:gridColumn name="fechaFinal" index="fechaFinal" title="Fecha Final"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
+		    		editable="true"
+		    		edittype="text"
 		    		formatter="date"
-		    		
-		    		
+
+
 		    		/>
-		    		
-		    	
+
+
 		    </sjg:grid></sj:div>
 		    <sj:div id="ttwo">
 		    <sjg:grid
@@ -262,89 +262,89 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			editinline="false"
 	    	viewrecords="true"
 	    	sortable="true"
-	        
+
 	        onSelectRowTopics="rowselect"
 	        navigatorAdd="false"
-	        navigatorSearch="false" 
+	        navigatorSearch="false"
 		    navigatorRefresh="true"
 		    navigatorDelete="false"
-		    navigatorEdit="false" 
-		    navigatorView="true" 
+		    navigatorEdit="false"
+		    navigatorView="true"
 		    navigatorViewOptions="{width:400}"
-		    navigatorEditOptions="{width:400,reloadAfterSubmit:true,closeAfterEdit:true}" 
-		    
+		    navigatorEditOptions="{width:400,reloadAfterSubmit:true,closeAfterEdit:true}"
+
 	    	>
       			<sjg:gridColumn name="id"
-      							index="id" 
-      							title="id" 
-      							key="true" 
-      							formatter="integer" 
-      							sortable="false" 
-      							editable="false" 
+      							index="id"
+      							title="id"
+      							key="true"
+      							formatter="integer"
+      							sortable="false"
+      							editable="false"
       							hidden="true"/>
-      							
-      			<sjg:gridColumn name="nombre" index="nombre" title="Descripcion"  
-		    		sortable="true" 
+
+      			<sjg:gridColumn name="nombre" index="nombre" title="Descripcion"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
-		    		editoptions="{size: 30}"   
-		    		
-		    		
+		    		editable="true"
+		    		edittype="text"
+		    		editoptions="{size: 30}"
+
+
 		    		/>
-		    	
-		    	<sjg:gridColumn name="monto" index="monto" title="Monto Mensual"  
-		    		sortable="true" 
+
+		    	<sjg:gridColumn name="monto" index="monto" title="Monto Mensual"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
-		    		editoptions="{size: 30}" 
-		    		
+		    		editable="true"
+		    		edittype="text"
+		    		editoptions="{size: 30}"
+
 		    		/>
-		    	
-		    	
-		    		
-		    	<sjg:gridColumn name="numeroCuotas" index="numeroCuotas" title="Numero de Cuotas"  
-		    		sortable="true" 
+
+
+
+		    	<sjg:gridColumn name="numeroCuotas" index="numeroCuotas" title="Numero de Cuotas"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
-		    		editoptions="{size: 30}" 
-		    		
+		    		editable="true"
+		    		edittype="text"
+		    		editoptions="{size: 30}"
+
 		    		/>
-		    	<sjg:gridColumn name="fechaInicio" index="fechaInicio" title="Fecha Inicio"  
-		    		sortable="true" 
+		    	<sjg:gridColumn name="fechaInicio" index="fechaInicio" title="Fecha Inicio"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
+		    		editable="true"
+		    		edittype="text"
 		    		formatter="date"
-		    			    		
+
 		    		/>
-		    			    	   		
-		    	<sjg:gridColumn name="fechaFinal" index="fechaFinal" title="Fecha Final"  
-		    		sortable="true" 
+
+		    	<sjg:gridColumn name="fechaFinal" index="fechaFinal" title="Fecha Final"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="text"  
+		    		editable="true"
+		    		edittype="text"
 		    		formatter="date"
 		    		/>
-		    		
-		    		
-		    
-		    		
-		    	<sjg:gridColumn name="tipoAbono" index="tipoAbono" title="Tipo Abono"  
-		    		sortable="true" 
+
+
+
+
+		    	<sjg:gridColumn name="tipoAbono" index="tipoAbono" title="Tipo Abono"
+		    		sortable="true"
 		    		search="true"
-		    		editable="true" 
-		    		edittype="select"  
-		    		editoptions="{value:'Imponible Tributable:Imponible Tributable;Imponible NO Tributable:Imponible NO Tributable;NO Imponible Tributable:NO Imponible Tributable;NO Imponible NO Tributable:NO Imponible NO Tributable'}" 
-		    		
+		    		editable="true"
+		    		edittype="select"
+		    		editoptions="{value:'Imponible Tributable:Imponible Tributable;Imponible NO Tributable:Imponible NO Tributable;NO Imponible Tributable:NO Imponible Tributable;NO Imponible NO Tributable:NO Imponible NO Tributable'}"
+
 		    		/>
 		    </sjg:grid>
 		    </sj:div>
          </sj:tabbedpanel>
     </div></div></div>
-    
+
     <div class="wrapper">
 			<div class="pad">
 				<div class="wrapper">
@@ -364,7 +364,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 * ..........................BaseImponible...........................
 		 * (-) cotizarAFP: descuento AFP
 		 * (-) cotizarSalud: fonasa o isapre
-		 * (-) SeguroCesantia: seguro cesantia		
+		 * (-) SeguroCesantia: seguro cesantia
 		 * 			(+) cargoTrabajadorAFC: seguro cesantia trabajador 2.4 %
 		 * 			(+) cargoEmpleadorAFC: seguro cesantia empleador 0.6%
 		 * (+) AbonosNoImponiblesTributables: abonos
@@ -374,110 +374,123 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 * (+) AbonosNoImponiblesNoTributables
 		 * (-) Anticipos
 		 * ..........................SueldoLiquido..........................
-		 */  --> 
+		 */  -->
     <div id="Liquidacion_sueldo">
     <s:actionmessage/>
-    <table width="950" border="1">
+    <table width="820" border="1">
   <tr>
-    <td rowspan="2"><table align="left" width="470" border="1">
+
+            <tr>
+                    <td class="texto" align="right">Mes: </td>
+                    <td class="cifra"><s:property  value="{Mes}"/></td>
+            </tr>
+             <tr>
+                     <td class="texto" align="right">Año: </td>
+                     <td class="cifra"><s:property value="{Anio}"/></td>
+            </tr>
+
+    <td rowspan="2"><table align="left" width="370" border="1">
       <tr>
         <td class="texto_titulo" colspan="2" align="left">HABERES IMPONIBLES</td>
         </tr>
       <tr>
         <td class="texto">+ Sueldo Base</td>
-        <td class="cifra"><s:property value="SueldoBaseImponibleTrabajado"/></td>
+        <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{SueldoBaseImponibleTrabajado})"/></td>
       </tr>
       <tr>
         <td class="texto">+ Horas Extras</td>
-        <td class="cifra"><s:property value="HorasExtrasTrabajadas" /></td>
+        <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{HorasExtrasTrabajadas})"/></td>
       </tr>
       <tr>
         <td class="texto">+ Gratificación</td>
-        <td class="cifra"><s:property value="ValorGratificacion"/></td>
+        <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{ValorGratificacion})"/></td>
       </tr>
       <tr>
         <td class="texto">+ Abonos Imponibles Tributables</td>
-        <td class="cifra"><s:property value="AbonosImponibles"/></td>
+        <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{AbonosImponibles})"/></td>
       </tr>
       <tr>
         <td class="texto">+ Abonos Imponibles No Tributables</td>
-        <td class="cifra"><s:property value="AbonosImponiblesNoTributables"/></td>
+        <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{AbonosImponiblesNoTributables})"/></td>
       </tr>
       <tr>
         <td class="texto_subtitulo" align="center">BASE IMPONIBLE</td>
-        <td class="cifra_total"><s:property value="BaseImponible"/></td>
+        <td class="cifra_total" align="right"><s:property value="getText('$ {0,number,#,##0}',{BaseImponible})"/></td>
       </tr>
     </table></td>
-    <td><table width="470" border="1" align="left">
+    <td><table width="370" border="1" align="left">
       <tr>
         <td  class="texto_titulo" colspan="2" align="left">DESCUENTOS PREVISIONALES</td>
         </tr>
       <tr>
         <td class="texto">- AFP</td>
-        <td class="cifra"><s:property value="cotizarAFP"/></td>
+        <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{cotizarAFP})"/></td>
       </tr>
       <tr>
         <td class="texto">- Salud</td>
-        <td class="texto"><s:property value="cotizarSalud"/></td>
+        <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{cotizarSalud})"/></td>
       </tr>
       <tr>
         <td class="texto">- Seguro de Cesantía</td>
-        <td class="cifra"><s:property value="SegurodeCesantia"/></td>
+        <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{SegurodeCesantia})"/></td>
       </tr>
       <tr>
         <td class="texto_subtitulo" align="center">TOTAL</td>
-        <td class="cifra_total"><s:property value="Total_desc_prev"/></td>
+        <td class="cifra_total" align="right"><s:property value="getText('$ {0,number,#,##0}',{Total_desc_prev})"/></td>
       </tr>
     </table></td>
   </tr>
   <tr>
-    <td><table width="470" border="1">
-      <tr>
-        <td  class="texto_titulo" colspan="2" align="left">OTROS HABERES</td>
+       <td><table width="370" border="1">
+         <tr>
+           <td  class="texto_titulo" colspan="2" align="left">Impuesto único</td>
+           </tr>
+         <tr>
+         <tr>
+            <td class="texto">- Impuesto a Pagar</td>
+            <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{ImpuestoTributarioaPagar})"/></td>
+          </tr>
+           <tr>
+           <td class="texto">       Base tributable: <s:property value="getText('$ {0,number,#,##0}',{BaseTributable})"/></td>
+         </tr>
+       </table></td>
+
+    </tr>
+  <tr>
+    <td><table width="370" border="1">
+        <tr>
+          <td  class="texto_titulo" colspan="2" align="left">HABERES NO IMPONIBLES</td>
+          </tr>
+        <tr>
+          <td class="texto">+ Asignacion Familiar</td>
+          <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{AsignacionaPagar})"/></td>
         </tr>
+        <tr>
+          <td class="texto">+ Abonos No Imp. No Trib.</td>
+          <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{AbonosNoImponiblesNoTributables})"/></td>
+        </tr>
+        <tr>
+              <td class="texto">+ Abonos No Imponibles Tributables</td>
+              <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{AbonosNoImponiblesTributables})"/></td>
+        </tr>
+
+        <tr>
+          <td class="texto_subtitulo" align="center">TOTAL</td>
+          <td class="cifra_total" align="right"><s:property value="getText('$ {0,number,#,##0}',{Total_otros_haberes})"/></td>
+        </tr>
+      </table></td>
+
+    <td><table width="370" border="1">
       <tr>
-        <td class="texto">+ Asignacion Familiar</td>
-        <td class="cifra"><s:property value="AsignacionaPagar"/></td>
-      </tr>
-      <tr>
-        <td class="texto">+ Abonos No Imp. No Trib.</td>
-        <td class="cifra"><s:property value="AbonosNoImponiblesNoTributables"/></td>
-      </tr>
-      <tr>
-        <td class="texto_subtitulo" align="center">TOTAL</td>
-        <td class="cifra_total"><s:property value="Total_otros_haberes"/></td>
-      </tr>
-    </table></td>
-  </tr>
-  <tr>
-    <td><table width="470" border="1">
-      <tr>
-        <td class="texto">+ Abonos No Imponibles Tributables</td>
-        <td class="cifra"><s:property value="AbonosNoImponiblesTributables"/></td>
-      </tr>
-      <tr>
-        <td class="texto_subtitulo" align="center">BASE TRIBUTABLE</td>
-        <td class="cifra_total"><s:property value="BaseTributable"/></td>
-      </tr>
-      <tr>
-        <td class="texto">- Impuesto a Pagar</td>
-        <td class="cifra"><s:property value="ImpuestoTributarioaPagar"/></td>
-      </tr>
-      <tr>
-        <td class="texto_subtitulo" align="center">SUELDO DESPUES DE IMPUESTO</td>
-        <td class="cifra_total"><s:property value="SuelDspsImpto"/></td>
-      </tr>
-    </table></td>
-    <td><table width="470" border="1">
-      <tr>
-        <td class="texto">- Anticipos u Otros Dscts.</td>
-        <td class="cifra"><s:property value="Anticipos"/></td>
+        <td class="texto_subtitulo">- Anticipos u Otros Dscts.</td>
+        <td class="cifra" align="right"><s:property value="getText('{0,number,#,##0}',{Anticipos})"/></td>
       </tr>
     </table></td>
   </tr>
   <tr>
     <td class="texto_sueldo" align="right">SUELDO LIQUIDO A PAGAR</td>
-    <td class="cifra_sueldo" align="left"><s:property value="SueldoLiquido"/></td>
+    <td class="cifra_sueldo" align="left"><s:property value="getText('$ {0,number,#,##0}',{SueldoLiquido})"/></td>
+
   </tr>
 </table>
 </div>
@@ -496,23 +509,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </section> 
 </section>
 <!-- content -->
-<!-- footer -->	
-	<footer>
-	Software desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
-	como requisito parcial para la obtención del título de Ingeniero Civil Informático por la Universidad del Bíobio<br>
-	Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
-	 
-	
-	</footer>
-		
-	
-<!-- / footer -->
-</div>
-<div align="center">
-<a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
-<a href="#" id="Footer_logo"> </a>
-</div>
-<script type="text/javascript"> Cufon.now(); </script>
 
+</div>
+<!-- footer -->
+    <footer>
+        <div align="center">
+        <a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
+            <p><br>
+            REMUSYSTEM , es desarrollado y mantenido por alumnos, ex-alumnos y profesores de la carrera de Ingeniería Civil Informática de la <br>
+            <a href="http://www.ubiobio.cl/face/">Facultad de Ciencias Empresariales de la Universidad del Bío-Bío.</a>
+            La versión inicial fue desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
+    	    como requisito parcial para la obtención del título de Ingeniero Civil Informático.
+    	    <br><br>
+    	    <a href="www.remusystem.org">www.remusystem.org</a><br>
+    	    Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
+
+        </div>
+    </footer>
+<!-- / footer -->
 </body>
 </html>

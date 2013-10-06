@@ -110,8 +110,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <% Trabajador trabajador = (Trabajador) session.getAttribute("Trab_PRO");%>
 
 
-	<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small"/>
-	<s:actionmessage cssClass="ui-state-highlight" cssStyle="font-size-small"/>
+	<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small;margin: 25px;text-align: center;padding: 10px"/>
+	<s:actionmessage cssClass="ui-state-highlight"  cssStyle="font-size-small;margin: 25px;text-align: center"/>
     <s:form id="ModContra" name="ModContra" action="ModContra" method="POST" onsubmit="return validaPass(this);">
     <s:password cssClass="bg" name="pw_actual" id="pw_actual" label="Password Actual" title="Ingrese su actual password" />
 	<s:password cssClass="bg" name="pw_new" id="pw_new" label="Ingrese su nueva Password" title="Ingrese su nueva password" />
@@ -130,23 +130,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </section>
 <!-- content -->
-<!-- footer -->	
-	<footer>
-	Software desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
-	como requisito parcial para la obtención del título de Ingeniero Civil Informático por la Universidad del Bíobio<br>
-	Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
-	 
-	
-	</footer>
-		
-	
-<!-- / footer -->
-</div>
-<div align="center">
-<a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
-<a href="#" id="Footer_logo"> </a>
-</div>
-<script type="text/javascript"> Cufon.now(); </script>
 
+</div>
+<!-- footer -->
+    <footer>
+        <div align="center">
+        <a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
+            <p><br>
+            REMUSYSTEM , es desarrollado y mantenido por alumnos, ex-alumnos y profesores de la carrera de Ingeniería Civil Informática de la <br>
+            <a href="http://www.ubiobio.cl/face/">Facultad de Ciencias Empresariales de la Universidad del Bío-Bío.</a>
+            La versión inicial fue desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
+    	    como requisito parcial para la obtención del título de Ingeniero Civil Informático.
+    	    <br><br>
+    	    <a href="www.remusystem.org">www.remusystem.org</a><br>
+    	    Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
+
+        </div>
+    </footer>
+<!-- / footer -->
 </body>
 </html>

@@ -116,7 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       				<div class="box pad_bot1">
 					        <div class="pad marg_top">
     						<s:form id="anticipoCargo" name="anticipoCargo" action="anticipoCargo" method="POST" onsubmit="return validaAnticipoCargo(this);">
-    						<s:actionmessage cssClass="ui-state-highlight" cssStyle="font-size-small"/>
+    						<s:actionmessage cssClass="ui-state-highlight" cssStyle="font-size-small;margin: 25px;text-align: center"/>
     						    <s:url id="remoteurl3" action="lista_cargos_tra" /> 
 									<sj:select
 										label="Cargo"
@@ -133,14 +133,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     							<s:textfield cssClass="bg" name="num_cuotas" id="num_cuotas" label="Numero de Cuotas" title="Cantidad de veces a pagar" onchange="javascript: Sue(this.value);"/>
     							<sj:datepicker cssClass="bg" label="Fecha de Inicio" id="desde" name="desde" changeMonth="true" changeYear="true" displayFormat="dd/mm/yy" />
 								<sj:submit value="Guardar" cssClass="button" title="Pulse el botón para guardar"/>
-							<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small"/>
+							<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small;margin: 25px;text-align: center;padding: 10px"/>
 							</s:form>
 							</div></div></div>
 							<div id="ttwo">
 							<div class="box pad_bot1">
 							<div class="pad marg_top">
 							<s:form id="abonoCargo" name="abonoCargo" action="abonoCargo" method="POST" onsubmit="return validaAbonoCargo(this);">
-    						<s:actionmessage cssClass="ui-state-highlight" cssStyle="font-size-small"/>
+    						<s:actionmessage cssClass="ui-state-highlight"  cssStyle="font-size-small;margin: 25px;text-align: center"/>
     						    
 									<sj:select
 										label="Cargo"
@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     							<sj:datepicker cssClass="bg" label="Fecha de Inicio" id="desde2" name="desde2" changeMonth="true" changeYear="true" displayFormat="dd/mm/yy" />
 								<s:select cssClass="bg" label="Tipo de Abono" id="tipoabono" name="tipoabono" headerKey="-1" headerValue="Seleccion el Tipo de Abono" list="#{'Imponible Tributable':'Imponible Tributable','Imponible NO Tributable':'Imponible NO Tributable','NO Imponible Tributable':'NO Imponible Tributable','NO Imponible NO Tributable':'NO Imponible NO Tributable'}"/>
 								<sj:submit value="Guardar" cssClass="button" title="Pulse el botón para guardar"/>
-							<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small"/>
+							<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small;margin: 25px;text-align: center;padding: 10px"/>
 							</s:form>
 							</div></div></div>
 							</sj:tabbedpanel>
@@ -173,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       				<div class="box pad_bot1">
 					        <div class="pad marg_top">
     						<s:form id="anticipoRango" name="anticipoRango" action="anticipoRango" method="POST" onsubmit="return validaAnticipoRango(this);">
-    						<s:actionmessage cssClass="ui-state-highlight" cssStyle="font-size-small"/>
+    						<s:actionmessage cssClass="ui-state-highlight"  cssStyle="font-size-small;margin: 25px;text-align: center"/>
     							<s:textfield cssClass="bg" name="nombre3" id="nombre3" label="Descripción" title="Ingrese un nombre"/>
     							<s:textfield cssClass="bg" name="monto_desde" id="monto_desde" label="Desde (sueldo)" title="Desde que sueldo se dara el abono" onchange="javascript: Sue(this.value);"/>
 								<s:textfield cssClass="bg" name="monto_hasta" id="monto_hasta" label="Hasta (sueldo)" title="Hasta que sueldo se dara el abono" onchange="javascript: Sue(this.value);"/>
@@ -181,14 +181,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     							<s:textfield cssClass="bg" name="num_cuotas3" id="num_cuotas3" label="Numero de Cuotas" title="Cantidad de veces a pagar"/>
     							<sj:datepicker cssClass="bg" label="Fecha de Inicio" id="desde3" name="desde3" changeMonth="true" changeYear="true" displayFormat="dd/mm/yy" />
 								<sj:submit value="Guardar" cssClass="button" title="Pulse el botón para guardar"/>
-							<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small"/>
+							<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small;margin: 25px;text-align: center;padding: 10px"/>
 							</s:form>
 							</div></div></div>
 							<div id="ttwo2">
 							<div class="box pad_bot1">
 							<div class="pad marg_top">
 							<s:form id="abonoRango" name="abonoRango" action="abonoRango" method="POST" onsubmit="return validaAbonoRango(this);">
-    						<s:actionmessage cssClass="ui-state-highlight" cssStyle="font-size-small"/>
+    						<s:actionmessage cssClass="ui-state-highlight"  cssStyle="font-size-small;margin: 25px;text-align: center"/>
     							<s:textfield cssClass="bg" name="nombre4" id="nombre4" label="Descripción" title="Ingrese un nombre"/>
     						    <s:textfield cssClass="bg" name="monto_desde2" id="monto_desde2" label="Desde (sueldo)" title="Desde que sueldo se dara el abono" onchange="javascript: Sue(this.value);"/>
 								<s:textfield cssClass="bg" name="monto_hasta2" id="monto_hasta2" label="Hasta (sueldo)" title="Hasta que sueldo se dara el abono" onchange="javascript: Sue(this.value);"/>
@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     							<sj:datepicker cssClass="bg" label="Fecha de Inicio" id="desde4" name="desde4" changeMonth="true" changeYear="true" displayFormat="dd/mm/yy" />
 								<s:select cssClass="bg" label="Tipo de Abono" id="tipoabono2" name="tipoabono2" headerKey="-1" headerValue="Seleccion el Tipo de Abono" list="#{'Imponible Tributable':'Imponible Tributable','Imponible NO Tributable':'Imponible NO Tributable','NO Imponible Tributable':'NO Imponible Tributable','NO Imponible NO Tributable':'NO Imponible NO Tributable'}"/>
 								<sj:submit value="Guardar" cssClass="button" title="Pulse el botón para guardar"/>
-							<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small"/>
+							<s:actionerror cssClass="ui-state-error" cssStyle="font-size-small;margin: 25px;text-align: center;padding: 10px"/>
 							</s:form>
 							</div></div></div>
 							</sj:tabbedpanel>
@@ -211,22 +211,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 			</section>
 <!-- content -->
-<!-- footer -->	
-	<footer>
-	Software desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
-	como requisito parcial para la obtención del título de Ingeniero Civil Informático por la Universidad del Bíobio<br>
-	Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
-	 
-	
-	</footer>
-		
-	
+
+</div>
+<!-- footer -->
+    <footer>
+        <div align="center">
+        <a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
+            <p><br>
+            REMUSYSTEM , es desarrollado y mantenido por alumnos, ex-alumnos y profesores de la carrera de Ingeniería Civil Informática de la <br>
+            <a href="http://www.ubiobio.cl/face/">Facultad de Ciencias Empresariales de la Universidad del Bío-Bío.</a>
+            La versión inicial fue desarrollado por <a href="http://cl.linkedin.com/pub/carlos-sebastián-cáceres-lópez/20/735/576/">Carlos Cáceres López</a><br>
+    	    como requisito parcial para la obtención del título de Ingeniero Civil Informático.
+    	    <br><br>
+    	    <a href="www.remusystem.org">www.remusystem.org</a><br>
+    	    Software distribuido bajo la licencia <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a> <br>
+
+        </div>
+    </footer>
 <!-- / footer -->
-</div>
-<div align="center">
-<a href="http://www.ubiobio.cl" id="Footer_logo_universidad"></a>
-<a href="#" id="Footer_logo"> </a>
-</div>
 
 
 </body>

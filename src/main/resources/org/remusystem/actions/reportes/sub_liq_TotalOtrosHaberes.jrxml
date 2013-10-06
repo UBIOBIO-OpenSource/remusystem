@@ -22,7 +22,7 @@ WHERE
      liquidacion_de_sueldo.`mes` = $P{Mes}
      and liquidacion_de_sueldo.`anio` = $P{Anio}
      and relacion_laboral.`Id` = $P{id_relacion}
-     and (detalle_liquidacion.`posicion` = 13
+     and (detalle_liquidacion.`posicion` = 13  or detalle_liquidacion.`posicion` = 10
      or detalle_liquidacion.`posicion` = 15)]]>
 	</queryString>
 	<field name="detalle_liquidacion_monto" class="java.math.BigDecimal"/>

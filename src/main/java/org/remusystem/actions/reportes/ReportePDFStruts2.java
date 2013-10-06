@@ -41,17 +41,23 @@ public class ReportePDFStruts2 extends ActionSupport implements SessionAware {
     private Date fecha = new Date();
     private Map<String, Object> parametros;
     private Connection conexion;
-
+    private String Mes;
+    private String Anio;
 
     public String execute() throws Exception {
         RelacionLaboral rel = (RelacionLaboral) session.get("relacion");
-        String mes = TransformarMes(fecha.getMonth());
-        Integer numAnio = fecha.getYear() + 1900;
+        Mes=(String) session.get("VerMes");
+        Anio=(String) session.get("VerAnio");
+        //mes y año de la fecha actual
+        //aquí siempre está mostrando la fecha actual, pero debería mostar la que corresponda.
+        //String mes = TransformarMes(fecha.getMonth());
+        //Integer numAnio = fecha.getYear() + 1900;
 
         parametros = new HashMap<String, Object>();
         parametros.put("id_rel", Integer.toString(rel.getId()));
-        parametros.put("Mes", mes);
-        parametros.put("Anio", Integer.toString(numAnio));
+        parametros.put("Mes", Mes);
+        //parametros.put("Anio", Integer.toString(numAnio));
+        parametros.put("Anio", Anio);
         String fullPath = System.getenv("remusystem_report");
 		if(fullPath==null){
 		       fullPath="/home/remusystem/remu_report/";
@@ -155,6 +161,23 @@ public class ReportePDFStruts2 extends ActionSupport implements SessionAware {
     public void setParametros(Map<String, Object> parametros) {
         this.parametros = parametros;
     }
+    public String getMes() {
+        return Mes;
+    }
 
+
+    public void setMes(String mes) {
+        Mes = mes;
+    }
+
+
+    public String getAnio() {
+        return Anio;
+    }
+
+
+    public void setAnio(String anio) {
+        Anio = anio;
+    }
 
 }
