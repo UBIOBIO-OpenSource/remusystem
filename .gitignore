@@ -1,0 +1,7 @@
+remove-sensitive-file.sh
+src/main/java/org/remusystem/actions/reportes/ReportConector.java.local
+src/main/java/org/remusystem/actions/reportes/ReportConector.java.remote
+src/main/java/org/remusystem/actions/reportes/ReportConector.java.public
+src/main/resources/hibernate.cfg.xml.local
+src/main/resources/hibernate.cfg.xml.public
+src/main/resources/hibernate.cfg.xml.remote
